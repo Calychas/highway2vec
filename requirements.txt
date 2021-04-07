@@ -13,3 +13,6 @@ networkx
 matplotlib
 seaborn
 osmnx
+folium
+iteration-utilities
+tqdm
