@@ -1,5 +1,15 @@
+# https://www.lfd.uci.edu/~gohlke/pythonlibs
+./packages/GDAL-3.2.2-cp38-cp38-win_amd64.whl
+./packages/Fiona-1.8.18-cp38-cp38-win_amd64.whl
+fiona
 pandas
 numpy
 plotly
 jupyter
 h3
+shapely
+geopandas
+networkx
+matplotlib
+seaborn
+osmnx
