@@ -16,3 +16,7 @@ osmnx
 folium
 iteration-utilities
 tqdm
+scikit-learn
+pynndescent
+umap-learn
+hdbscan
