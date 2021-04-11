@@ -1,5 +1,19 @@
 The directory structure of your new project looks like this: 
 
+
+```python
+    python .\scripts\generate_place.py download 'Wrocław,Poland' .\data\generated\
+    python .\scripts\generate_place.py h3 .\data\generated\Wroclaw_Poland\place.geojson .\data\generated\Wroclaw_Poland
+    python .\scripts\generate_place.py assignh3 .\data\generated\Wroclaw_Poland
+    python .\scripts\generate_place.py features .\data\generated\Wroclaw_Poland
+```
+
+
+
+
+
+
+
 ```
 ├── LICENSE
 ├── Makefile           <- Makefile with commands like `make data` or `make train`
