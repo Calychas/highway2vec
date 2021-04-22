@@ -18,7 +18,6 @@ FEATURES_TO_EXPLODE = [
 
 
 def generate_features_for_edges(edges: Union[pd.DataFrame, gpd.GeoDataFrame], features_to_explode: List[str]) -> gpd.GeoDataFrame:
-    edges.rename(columns={"index": "id"}, inplace=True)
     for col_expl in features_to_explode:
         edges = edges.join(explode_and_pivot(edges, col_expl))
     
@@ -44,7 +43,16 @@ def explode_and_pivot(df: Union[pd.DataFrame, gpd.GeoDataFrame], column_name: st
     return df_piv
 
 
+def melt_and_max(edges: gpd.GeoDataFrame, column_name: str, columns: List[str]) -> pd.Series:
+    gdf = edges[columns + ["id"]].melt(id_vars = ["id"], value_vars=columns)
+    gdf["variable"] = gdf["variable"].apply(lambda x: float(x.split("_")[1]))
+    gdf["mul"] = gdf["variable"] * gdf["value"]
+    gdf = gdf.groupby("id").max()[["mul"]].rename(columns={"mul": column_name})
+    return gdf[column_name]
+    
+
 def convert_to_list(x: Any) -> list:
+    x = str(x).replace(':', "_")
     try:
         x = eval(x) if type(x) is str else x
     except NameError:

@@ -1,8 +1,8 @@
-from os.path import normpath, dirname, join
+from pathlib import Path
 
-PROJECT_DIR = join(normpath(dirname(__file__)), "..")
+PROJECT_DIR = Path(__file__).parent.parent.resolve()
 
-DATA_DIR = join(PROJECT_DIR, "data")
-RAW_DATA_DIR = join(DATA_DIR, "raw")
-PROCESSED_DATA_DIR = join(DATA_DIR, "processed")
-GENERATED_DATA_DIR = join(DATA_DIR, "generated")
+DATA_DIR = PROJECT_DIR.joinpath("data")
+RAW_DATA_DIR = DATA_DIR.joinpath("raw")
+PROCESSED_DATA_DIR = DATA_DIR.joinpath("processed")
+GENERATED_DATA_DIR = DATA_DIR.joinpath("generated")

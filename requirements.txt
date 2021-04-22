@@ -1,7 +1,13 @@
+  
 # https://www.lfd.uci.edu/~gohlke/pythonlibs
-./packages/GDAL-3.2.2-cp38-cp38-win_amd64.whl
-./packages/Fiona-1.8.18-cp38-cp38-win_amd64.whl
-./packages/rasterio-1.2.1-cp38-cp38-win_amd64.whl
+https://download.lfd.uci.edu/pythonlibs/w4tscw6k/Fiona-1.8.19-cp38-cp38-win_amd64.whl; sys.platform == 'win32'
+https://download.lfd.uci.edu/pythonlibs/w4tscw6k/GDAL-3.2.2-cp38-cp38-win_amd64.whl; sys.platform == 'win32'
+https://download.lfd.uci.edu/pythonlibs/w4tscw6k/rasterio-1.2.3-cp38-cp38-win_amd64.whl; sys.platform == 'win32'
+
+GDAL; sys.platform == 'linux'
+Fiona; sys.platform == 'linux'
+rasterio; sys.platform == 'linux'
+
 pandas
 numpy
 plotly
@@ -14,7 +20,6 @@ matplotlib
 seaborn
 osmnx
 folium
-iteration-utilities
 tqdm
 scikit-learn
 pynndescent
@@ -25,3 +30,5 @@ keplergl
 ipympl
 click
 unidecode
+pandas-profiling
+pyfunctional
