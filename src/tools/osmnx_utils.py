@@ -30,4 +30,4 @@ def download_and_save_data_for_place(place_name: str, out_dir: Path, network_typ
 
 
 def get_place_dir_name(place_name: str) -> str:
-    return unidecode.unidecode(place_name).replace(",", "_")
+    return unidecode.unidecode(place_name).replace(",", "_").replace(' ', "-")
