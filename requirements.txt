@@ -32,3 +32,5 @@ click
 unidecode
 pandas-profiling
 pyfunctional
+black
+pylint

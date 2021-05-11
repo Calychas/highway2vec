@@ -1,9 +1,16 @@
+import sys
 import click
-from src.tools.osmnx_utils import generate_data_for_place, get_place_dir_name
-from src.tools.h3_utils import generate_hexagons_for_place, assign_hexagons_to_edges, get_resolution_buffered_suffix
-from src.tools.feature_extraction import generate_features_for_edges, FEATURES_TO_EXPLODE
 import geopandas as gpd
 from pathlib import Path
+
+PROJECT_DIR = Path().parent.parent.resolve()
+sys.path.append(str(PROJECT_DIR))
+sys.path.append(str(PROJECT_DIR.joinpath("src").resolve()))
+
+
+from src.tools.osmnx_utils import generate_data_for_place
+from src.tools.h3_utils import generate_hexagons_for_place, assign_hexagons_to_edges, get_resolution_buffered_suffix
+from src.tools.feature_extraction import generate_features_for_edges, FEATURESET
 
 
 @click.group()
@@ -57,7 +64,7 @@ def features(place_dir: str, network_type: str, resolution: int, buffered: bool)
     edges_path = Path(shp_dir).joinpath(f"edges_hex_{get_resolution_buffered_suffix(resolution, buffered)}.shp")
     edges: gpd.GeoDataFrame = gpd.read_file(edges_path)  # type: ignore
 
-    edges_with_features = generate_features_for_edges(edges, FEATURES_TO_EXPLODE)
+    edges_with_features = generate_features_for_edges(edges, FEATURESET)
     edges_with_features = edges_with_features.explode("h3_id")
 
     edges_with_features.to_file(Path(place_dir).joinpath(f"edges_{network_type}_{get_resolution_buffered_suffix(resolution, buffered)}.geojson"), driver="GeoJSON")
