@@ -17,11 +17,10 @@ warnings.filterwarnings("ignore")
 
 network_type = "drive"
 cities = pd.read_csv(RAW_DATA_DIR.joinpath("cities.csv"))
+cities = cities[cities["city"] != "Poland"]  # TODO: remove
 
 pbar_city = tqdm(cities.itertuples(), total=cities.shape[0])
 for row in pbar_city:
-    if row.country != "Poland":
-        continue
     place_name = f"{row.city},{row.country}"
     place_dir_name = get_place_dir_name(place_name)
     pbar_city.set_description(place_name)
@@ -47,9 +46,3 @@ for row in pbar_city:
         pbar_commands.update()
     except Exception as e:
         print("\n\nFailed:", place_name, "\n", e)
-
-
-# python .\scripts\generate_place.py download 'Wrocław,Poland' .\data\generated\
-# python .\scripts\generate_place.py h3 .\data\generated\Wroclaw_Poland\place.geojson .\data\generated\Wroclaw_Poland
-# python .\scripts\generate_place.py assignh3 .\data\generated\Wroclaw_Poland
-# python .\scripts\generate_place.py features .\data\generated\Wroclaw_Poland
