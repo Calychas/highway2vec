@@ -1,5 +1,7 @@
 from pathlib import Path
 
+RANDOM_SEED = 42
+
 PROJECT_DIR = Path(__file__).parent.parent.resolve()
 
 DATA_DIR = PROJECT_DIR.joinpath("data")

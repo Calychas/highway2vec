@@ -3,3 +3,5 @@ cache/
 venv/
 .vscode/
 .env
+lightning_logs/
+wandb/

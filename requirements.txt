@@ -1,8 +1,8 @@
   
 # https://www.lfd.uci.edu/~gohlke/pythonlibs
-https://download.lfd.uci.edu/pythonlibs/w4tscw6k/Fiona-1.8.19-cp38-cp38-win_amd64.whl; sys.platform == 'win32'
-https://download.lfd.uci.edu/pythonlibs/w4tscw6k/GDAL-3.2.2-cp38-cp38-win_amd64.whl; sys.platform == 'win32'
-https://download.lfd.uci.edu/pythonlibs/w4tscw6k/rasterio-1.2.3-cp38-cp38-win_amd64.whl; sys.platform == 'win32'
+https://download.lfd.uci.edu/pythonlibs/q4trcu4l/Fiona-1.8.19-cp38-cp38-win_amd64.whl; sys.platform == 'win32'
+https://download.lfd.uci.edu/pythonlibs/q4trcu4l/GDAL-3.2.3-cp38-cp38-win_amd64.whl; sys.platform == 'win32'
+https://download.lfd.uci.edu/pythonlibs/q4trcu4l/rasterio-1.2.3-cp38-cp38-win_amd64.whl; sys.platform == 'win32'
 
 GDAL; sys.platform == 'linux'
 Fiona; sys.platform == 'linux'
@@ -34,3 +34,18 @@ pandas-profiling
 pyfunctional
 black
 pylint
+
+-f https://download.pytorch.org/whl/torch_stable.html
+torch==1.7.1+cu110 
+torchvision==0.8.2+cu110 
+torchaudio==0.7.2
+pytorch-lightning
+lightning-bolts
+wandb
+
+-f https://pytorch-geometric.com/whl/torch-1.7.0+cu110.html
+torch-scatter 
+torch-sparse 
+torch-cluster 
+torch-spline-conv
+torch-geometric

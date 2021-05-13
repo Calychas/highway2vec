@@ -32,7 +32,7 @@ def download(place_name: str, out_dir: str, network_type: str):
 @click.argument('resolution', default=9)
 @click.argument('buffer', default=True)
 def h3(place_path: str, out_dir: str, resolution: int, buffer: bool):
-    click.echo(place_path)
+    # click.echo(place_path)
     place: gpd.GeoDataFrame = gpd.read_file(place_path, driver="GeoJSON")  # type: ignore
     generate_hexagons_for_place(place, resolution, out_dir, buffer)
 

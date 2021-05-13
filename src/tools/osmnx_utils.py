@@ -22,7 +22,7 @@ def download_and_save_data_for_place(place_name: str, out_dir: Path, network_typ
     place.to_file(out_dir.joinpath("place.geojson"), driver="GeoJSON")
 
     G = ox.graph_from_place(place_name, network_type=network_type)
-    ox.save_graphml(G, Path(out_dir).joinpath(f"graph_{network_type}.graphml"))
+    ox.save_graphml(G, Path(out_dir).joinpath(f"graph_{network_type}.graphml"), gephi=True)
     ox.save_graph_geopackage(G, Path(out_dir).joinpath(f"graph_{network_type}.gpkg"))
 
     shp_dir = Path(out_dir).joinpath(f"shp_{network_type}")
