@@ -3,7 +3,7 @@ import pandas as pd
 
 
 def tfidf(df: pd.DataFrame) -> pd.DataFrame:
-    v = TfidfTransformer()
+    v = TfidfTransformer(norm=None)
     x = v.fit_transform(df)
     df_tfidf = pd.DataFrame(x.toarray(), index=df.index, columns=df.columns)
 

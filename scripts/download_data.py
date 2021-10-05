@@ -16,7 +16,7 @@ warnings.filterwarnings("ignore")
 
 network_type = "drive"
 cities = pd.read_csv(RAW_DATA_DIR.joinpath("cities.csv"))
-cities = cities[cities["country"] == "Poland"]  # TODO: remove
+cities = cities[cities["country"] != "Poland"]  # TODO: remove
 
 pbar_city = tqdm(cities.itertuples(), total=cities.shape[0])
 for row in pbar_city:

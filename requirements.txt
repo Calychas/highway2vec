@@ -1,8 +1,8 @@
   
 # https://www.lfd.uci.edu/~gohlke/pythonlibs
-https://download.lfd.uci.edu/pythonlibs/q4trcu4l/Fiona-1.8.19-cp38-cp38-win_amd64.whl; sys.platform == 'win32'
-https://download.lfd.uci.edu/pythonlibs/q4trcu4l/GDAL-3.2.3-cp38-cp38-win_amd64.whl; sys.platform == 'win32'
-https://download.lfd.uci.edu/pythonlibs/q4trcu4l/rasterio-1.2.3-cp38-cp38-win_amd64.whl; sys.platform == 'win32'
+https://download.lfd.uci.edu/pythonlibs/y2rycu7g/Fiona-1.8.20-cp38-cp38-win_amd64.whl; sys.platform == 'win32'
+https://download.lfd.uci.edu/pythonlibs/y2rycu7g/GDAL-3.3.2-cp38-cp38-win_amd64.whl; sys.platform == 'win32'
+https://download.lfd.uci.edu/pythonlibs/y2rycu7g/rasterio-1.2.9-cp38-cp38-win_amd64.whl; sys.platform == 'win32'
 
 GDAL; sys.platform == 'linux'
 Fiona; sys.platform == 'linux'

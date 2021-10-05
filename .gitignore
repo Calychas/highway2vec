@@ -5,3 +5,4 @@ venv/
 .env
 lightning_logs/
 wandb/
+logs/
