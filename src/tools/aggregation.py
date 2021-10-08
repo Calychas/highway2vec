@@ -1,6 +1,7 @@
+from typing import Union
+
 import pandas as pd
 import geopandas as gpd
-from typing import Union
 
 
 def aggregate_hex(edges_hex: Union[pd.DataFrame, gpd.GeoDataFrame]) -> pd.DataFrame:
