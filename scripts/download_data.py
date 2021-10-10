@@ -15,8 +15,11 @@ import warnings
 warnings.filterwarnings("ignore")
 
 network_type = "drive"
+hex_resolutions_static = [6, 7, 8, 9, 10]
+hex_resolutions_features = [9]
+buffer_features = False
 cities = pd.read_csv(RAW_DATA_DIR.joinpath("cities.csv"))
-cities = cities[cities["country"] != "Poland"]  # TODO: remove
+cities = cities[cities["city"] == "Wrocław"]  # TODO: remove
 
 pbar_city = tqdm(cities.itertuples(), total=cities.shape[0])
 for row in pbar_city:
@@ -25,26 +28,19 @@ for row in pbar_city:
     pbar_city.set_description(place_name)
 
     try:
-        pbar_commands = tqdm(total=4, leave=False, desc="Download")
-        gp.download.callback(place_name, GENERATED_DATA_DIR, network_type)
+        pbar_commands = tqdm(total=1 + len(hex_resolutions_static) + len(hex_resolutions_features), leave=False, desc="Downloading")
+        gp.download.callback(place_name, GENERATED_DATA_DIR, network_type, hex_resolutions_static)
         pbar_commands.update()
 
-        pbar_commands.set_description("Generate H3")
-        gp.h3.callback(GENERATED_DATA_DIR.joinpath(place_dir_name, "place.geojson"), GENERATED_DATA_DIR.joinpath(place_dir_name), 7, True)
-        gp.h3.callback(GENERATED_DATA_DIR.joinpath(place_dir_name, "place.geojson"), GENERATED_DATA_DIR.joinpath(place_dir_name), 8, True)
-        gp.h3.callback(GENERATED_DATA_DIR.joinpath(place_dir_name, "place.geojson"), GENERATED_DATA_DIR.joinpath(place_dir_name), 9, True)
-        pbar_commands.update()
+        for h3_res_static in hex_resolutions_static:
+            pbar_commands.set_description(f"Generating H3 for hex res: {h3_res_static}")
+            gp.h3.callback(GENERATED_DATA_DIR.joinpath(place_dir_name, "place.geojson"), GENERATED_DATA_DIR.joinpath(place_dir_name), h3_res_static, False, network_type)
+            gp.h3.callback(GENERATED_DATA_DIR.joinpath(place_dir_name, "place.geojson"), GENERATED_DATA_DIR.joinpath(place_dir_name), h3_res_static, True, network_type)
+            pbar_commands.update()
 
-        pbar_commands.set_description("Assign H3")
-        gp.assign_h3.callback(GENERATED_DATA_DIR.joinpath(place_dir_name), network_type, 7, True)
-        gp.assign_h3.callback(GENERATED_DATA_DIR.joinpath(place_dir_name), network_type, 8, True)
-        gp.assign_h3.callback(GENERATED_DATA_DIR.joinpath(place_dir_name), network_type, 9, True)
-        pbar_commands.update()
-
-        pbar_commands.set_description("Generate features")
-        gp.features.callback(GENERATED_DATA_DIR.joinpath(place_dir_name), network_type, 7, True)
-        gp.features.callback(GENERATED_DATA_DIR.joinpath(place_dir_name), network_type, 8, True)
-        gp.features.callback(GENERATED_DATA_DIR.joinpath(place_dir_name), network_type, 9, True)
-        pbar_commands.update()
+        for hex_res_features in hex_resolutions_features:
+            pbar_commands.set_description(f"Generating features for hex res: {hex_res_features}")
+            gp.features.callback(GENERATED_DATA_DIR.joinpath(place_dir_name), network_type, hex_res_features, buffer_features)
+            pbar_commands.update()
     except Exception as e:
         print("\n\nFailed:", place_name, "\n", e)

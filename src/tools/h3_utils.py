@@ -9,7 +9,7 @@ from pathlib import Path
 tqdm.pandas()
 
 
-def generate_hexagons_for_place(place: gpd.GeoDataFrame, resolution: int, save_data_dir: Optional[str], buffer=False) -> gpd.GeoDataFrame:
+def generate_hexagons_for_place(place: gpd.GeoDataFrame, resolution: int, save_data_dir: Optional[str], network_type: str, buffer=False) -> gpd.GeoDataFrame:
     if buffer:
         place = get_buffered_place_for_h3(place, resolution)
 
@@ -31,6 +31,7 @@ def generate_hexagons_for_place(place: gpd.GeoDataFrame, resolution: int, save_d
     h3_gdf: gpd.GeoDataFrame = gpd.GeoDataFrame(h3_df).set_crs(epsg=4326)  # type: ignore
     if save_data_dir:
         h3_gdf.to_file(Path(save_data_dir).joinpath(f"hex_{get_resolution_buffered_suffix(resolution, buffer)}.geojson"), driver="GeoJSON")
+        h3_gdf.to_file(Path(save_data_dir).joinpath(f"graph_{network_type}.gpkg"), layer=f"hex_{get_resolution_buffered_suffix(resolution, buffer)}", driver="GPKG")
 
     return h3_gdf
 
