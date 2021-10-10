@@ -43,7 +43,7 @@ pytorch-lightning
 lightning-bolts
 wandb
 
--f https://pytorch-geometric.com/whl/torch-1.7.0+cu110.html
+-f https://pytorch-geometric.com/whl/torch-1.7.1+cu110.html
 torch-scatter 
 torch-sparse 
 torch-cluster 
