@@ -153,7 +153,7 @@ def generate_features_for_edges(
     feature_column_names = list(
         itertools.chain(*[[f"{k}_{v}" for v in vs] for k, vs in featureset.items()])
     )
-    columns_to_keep = ["id", "h3_id", "geometry"] + feature_column_names
+    columns_to_keep = ["u", "v", "key", "id", "h3_id", "geometry"] + feature_column_names
     columns_to_drop = list(set(edges.columns) - set(columns_to_keep))
     columns_to_add = list(
         set(columns_to_keep) - (set(columns_to_keep).intersection(set(edges.columns)))
@@ -229,6 +229,9 @@ def normalize(x: Any, column_name: str) -> str:
 
 
 def sanitize(x: Any, column_name: str) -> str:
+    if x == "":
+        x = "None"
+
     if column_name == "width":  # FIXME: doesn"t convert units and will crash on inches
         if type(x) is str and x != "None" and "[" not in x:
             n = len(x)
