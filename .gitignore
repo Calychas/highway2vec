@@ -6,3 +6,4 @@ venv/
 lightning_logs/
 wandb/
 logs/
+checkpoints/

@@ -42,9 +42,9 @@ class LitAutoEncoder(pl.LightningModule):
 
 class GCNEncoder(pl.LightningModule):
     def __init__(self, in_channels, out_channels) -> None:
-        super(GCNEncoder, self).__init__()
-        self.conv1 = GCNConv(in_channels, 2 * out_channels, cached=True) # cached only for transductive learning
-        self.conv2 = GCNConv(2 * out_channels, out_channels, cached=True) # cached only for transductive learning
+        super().__init__()
+        self.conv1 = GCNConv(in_channels, 2 * out_channels)
+        self.conv2 = GCNConv(2 * out_channels, out_channels)
 
     def forward(self, x, edge_index):
         x = self.conv1(x, edge_index).relu()
@@ -59,17 +59,18 @@ class LitGAE(pl.LightningModule):
     def encode(self, x, edge_index):
         return self.gae.encode(x, edge_index)
 
-    def decode(self, z, sigmoid=True):
-        return self.gae.decode(z, sigmoid)
+    def decode(self, z, edge_index, sigmoid=True):
+        return self.gae.decode(z, edge_index, sigmoid)
 
     def forward(self, x, edge_index):
         z = self.gae.encode(x, edge_index)
         return z
     
     def training_step(self, batch, batch_idx):
-        x, edge_index = batch
+        x = batch.x
+        edge_index = batch.edge_index
         z = self.encode(x, edge_index)
-        # x_hat = self.decode(z)
+        x_hat = self.decode(z, edge_index)
         loss = self.gae.recon_loss(z, edge_index)
 
         self.log('train_loss', loss, on_epoch=True, on_step=True)
