@@ -42,7 +42,7 @@ def get_resolution_buffered_suffix(resolution: int, buffered: bool):
 
 def get_buffered_place_for_h3(place: gpd.GeoDataFrame, resolution: int) -> gpd.GeoDataFrame:  # FIXME: not sure if it works properly
     edge_length = h3.edge_length(resolution=resolution, unit="m")  # type: ignore
-    return place.to_crs(epsg=3395).buffer(edge_length).to_crs(epsg=4326)
+    return place.copy().to_crs(epsg=3395).buffer(edge_length).to_crs(epsg=4326)
 
 
 def assign_hexagons_to_edges(edges: gpd.GeoDataFrame, hexagons: gpd.GeoDataFrame) -> gpd.GeoDataFrame:

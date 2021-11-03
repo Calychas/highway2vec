@@ -2,6 +2,7 @@ import sys
 import click
 import geopandas as gpd
 from pathlib import Path
+from typing import List, Optional
 
 PROJECT_DIR = Path().parent.parent.resolve()
 sys.path.append(str(PROJECT_DIR))
@@ -22,8 +23,10 @@ def main():
 @click.argument('place_name')
 @click.argument('out_dir', type=click.Path(file_okay=False))
 @click.argument('network_type', default="drive")
-def download(place_name: str, out_dir: str, network_type: str, h3_resolutions=[6, 7, 8, 9, 10]):
-    generate_data_for_place(place_name, out_dir, h3_resolutions=h3_resolutions, network_type=network_type)
+@click.option('--h3', '-h', "h3_resolutions", multiple=True, default=[6, 7, 8, 9, 10])
+@click.option('--region', '-r', "regions", multiple=True, default=None)
+def download(place_name: str, out_dir: str, network_type: str, h3_resolutions: List[int], regions: Optional[List[str]]):
+    generate_data_for_place(place_name, out_dir, h3_resolutions=h3_resolutions, network_type=network_type, regions=regions)
 
 
 @main.command()

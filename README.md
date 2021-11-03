@@ -1,6 +1,8 @@
-The directory structure of your new project looks like this: 
+
+### osm-road-infrastructure
 
 
+## Useful scripts
 ```python
     python .\scripts\generate_place.py download 'Wrocław,Poland' .\data\generated\
     python .\scripts\generate_place.py h3 .\data\generated\Wroclaw_Poland\place.geojson .\data\generated\Wroclaw_Poland
@@ -13,6 +15,7 @@ The directory structure of your new project looks like this:
 
 
 
+## The directory structure of your new project looks like this: 
 
 ```
 ├── LICENSE
