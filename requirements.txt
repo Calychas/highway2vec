@@ -37,6 +37,9 @@ pyfunctional
 black
 pylint
 selenium
+snakeviz
+line_profiler
+pyarrow
 
 -f https://download.pytorch.org/whl/torch_stable.html
 torch==1.9.1+cu111

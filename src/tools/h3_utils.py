@@ -30,8 +30,8 @@ def generate_hexagons_for_place(place: gpd.GeoDataFrame, resolution: int, save_d
 
     h3_gdf: gpd.GeoDataFrame = gpd.GeoDataFrame(h3_df).set_crs(epsg=4326)  # type: ignore
     if save_data_dir:
-        h3_gdf.to_file(Path(save_data_dir).joinpath(f"hex_{get_resolution_buffered_suffix(resolution, buffer)}.geojson"), driver="GeoJSON")
-        h3_gdf.to_file(Path(save_data_dir).joinpath(f"graph_{network_type}.gpkg"), layer=f"hex_{get_resolution_buffered_suffix(resolution, buffer)}", driver="GPKG")
+        # h3_gdf.to_file(Path(save_data_dir).joinpath(f"hex_{get_resolution_buffered_suffix(resolution, buffer)}.geojson"), driver="GeoJSON")
+        h3_gdf.to_file(Path(save_data_dir) / f"graph_{network_type}.gpkg", layer=f"hex_{get_resolution_buffered_suffix(resolution, buffer)}", driver="GPKG")
 
     return h3_gdf
 
@@ -41,13 +41,25 @@ def get_resolution_buffered_suffix(resolution: int, buffered: bool):
 
 
 def get_buffered_place_for_h3(place: gpd.GeoDataFrame, resolution: int) -> gpd.GeoDataFrame:  # FIXME: not sure if it works properly
-    edge_length = h3.edge_length(resolution=resolution, unit="m")  # type: ignore
-    return place.copy().to_crs(epsg=3395).buffer(edge_length).to_crs(epsg=4326)
+    twice_edge_length = 2 * h3.edge_length(resolution=resolution, unit="m")  # type: ignore
+    return place.copy().to_crs(epsg=3395).buffer(twice_edge_length).to_crs(epsg=4326)
 
 
-def assign_hexagons_to_edges(edges: gpd.GeoDataFrame, hexagons: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
-    return gpd.GeoDataFrame(gpd.sjoin(edges, hexagons[["h3_id", "geometry"]], op="intersects", how="inner") \
-        .drop(columns="index_right") \
-        .reset_index() \
-        .sort_values(by="index", ignore_index=True) \
-        .rename(columns={"index": "id"}))
+def assign_hexagons_to_edges(edges: gpd.GeoDataFrame, hexagons: gpd.GeoDataFrame, nodes: Optional[gpd.GeoDataFrame]) -> gpd.GeoDataFrame:
+    hexagons = gpd.GeoDataFrame(hexagons[["h3_id", "geometry"]])
+
+    if nodes is None:
+        edges_with_hexagons = gpd.GeoDataFrame(gpd.sjoin(edges, hexagons, op="intersects", how="inner") \
+            .drop(columns="index_right") \
+            .reset_index() \
+            .sort_values(by="index", ignore_index=True) \
+            .rename(columns={"index": "id"}))
+    else:
+        nodes = nodes.sjoin(hexagons, op="intersects", how="inner").set_index("osmid")[["h3_id"]]
+        edges_with_hexagons = gpd.GeoDataFrame(pd.concat([nodes.merge(edges, left_index=True, right_on="u"), nodes.merge(edges, left_index=True, right_on="v")]) \
+            .drop_duplicates() \
+            .sort_index() \
+            .reset_index() \
+            .rename(columns={"index": "id"}))
+
+    return edges_with_hexagons
