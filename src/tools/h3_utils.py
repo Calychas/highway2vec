@@ -29,7 +29,7 @@ def generate_hexagons_for_place(place: gpd.GeoDataFrame, resolution: int, save_d
     h3_df.set_index("h3_id", inplace=True)
 
     h3_gdf: gpd.GeoDataFrame = gpd.GeoDataFrame(h3_df).set_crs(epsg=4326)  # type: ignore
-    if save_data_dir:
+    if save_data_dir and not h3_gdf.empty:
         # h3_gdf.to_file(Path(save_data_dir).joinpath(f"hex_{get_resolution_buffered_suffix(resolution, buffer)}.geojson"), driver="GeoJSON")
         h3_gdf.to_file(Path(save_data_dir) / f"graph_{network_type}.gpkg", layer=f"hex_{get_resolution_buffered_suffix(resolution, buffer)}", driver="GPKG")
 

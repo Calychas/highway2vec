@@ -4,6 +4,7 @@ import pandas as pd
 from pathlib import Path
 from tqdm.auto import tqdm, trange
 import logging
+import json5 as json
 
 PROJECT_DIR = Path().parent.parent.resolve()
 sys.path.append(str(PROJECT_DIR))
@@ -13,6 +14,10 @@ from settings import *
 import scripts.generate_place as gp
 from src.tools.osmnx_utils import get_place_dir_name
 import warnings
+from src.settings import RAW_DATA_DIR
+
+with open(RAW_DATA_DIR / "featureset_default.jsonc", "r") as f:
+    FEATURESET = json.load(f)
 
 
 def main():
@@ -23,9 +28,9 @@ def main():
     hex_resolutions_static = [6, 7, 8, 9, 10]
     hex_resolutions_features = [9]
     buffer_features = False
-    intersection_based = True
+    intersection_based = False
     cities = pd.read_csv(RAW_DATA_DIR / "cities.csv")
-    cities = cities[cities["city"] == "Glasgow City"]  # TODO: remove
+    cities = cities[cities["city"] == "Wrocław"]  # TODO: remove
 
     pbar_city = tqdm(cities.itertuples(), total=cities.shape[0])
     for row in pbar_city:
@@ -50,7 +55,7 @@ def main():
 
             for hex_res_features in hex_resolutions_features:
                 pbar_commands.set_description(f"Generating features for hex res: {hex_res_features}")
-                gp.features.callback(place_dir, network_type, hex_res_features, buffer_features, intersection_based)
+                gp.features.callback(place_dir, network_type, hex_res_features, buffer_features, intersection_based, FEATURESET)
                 pbar_commands.update()
                 
         except Exception as e:
