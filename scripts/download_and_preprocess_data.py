@@ -14,7 +14,6 @@ from settings import *
 import scripts.generate_place as gp
 from src.tools.osmnx_utils import get_place_dir_name
 import warnings
-from src.settings import RAW_DATA_DIR
 
 with open(RAW_DATA_DIR / "featureset_default.jsonc", "r") as f:
     FEATURESET = json.load(f)
@@ -27,10 +26,10 @@ def main():
     network_type = "drive"
     hex_resolutions_static = [6, 7, 8, 9, 10]
     hex_resolutions_features = [9]
-    buffer_features = False
+    buffer_features = True
     intersection_based = False
     cities = pd.read_csv(RAW_DATA_DIR / "cities.csv")
-    cities = cities[cities["city"] == "Wrocław"]  # TODO: remove
+    # cities = cities[cities["city"].isin(["Los Angeles", "New York City", "San Francisco", "Glasgow"])]  # TODO: remove
 
     pbar_city = tqdm(cities.itertuples(), total=cities.shape[0])
     for row in pbar_city:
@@ -44,13 +43,13 @@ def main():
         try:
             pbar_commands = tqdm(total=1 + len(hex_resolutions_static) + len(hex_resolutions_features), leave=False, desc="Downloading")
 
-            gp.download.callback(place_name, GENERATED_DATA_DIR, network_type, hex_resolutions_static, regions)
+            # gp.download.callback(place_name, GENERATED_DATA_DIR, network_type, hex_resolutions_static, regions)
             pbar_commands.update()
 
             for h3_res_static in hex_resolutions_static:
                 pbar_commands.set_description(f"Generating H3 for hex res: {h3_res_static}")
-                gp.h3.callback(place_dir, h3_res_static, False, network_type)
-                gp.h3.callback(place_dir, h3_res_static, True, network_type)
+                # gp.h3.callback(place_dir, h3_res_static, False, network_type)
+                # gp.h3.callback(place_dir, h3_res_static, True, network_type)
                 pbar_commands.update()
 
             for hex_res_features in hex_resolutions_features:

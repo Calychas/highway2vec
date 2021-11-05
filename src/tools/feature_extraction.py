@@ -9,7 +9,7 @@ import numpy as np
 
 logger = logging.getLogger(__name__)
 
-with open(RAW_DATA_DIR / "implicit_maxspeeds.json", "r") as f:
+with open(RAW_DATA_DIR / "implicit_maxspeeds.jsonc", "r") as f:
     IMPLICIT_MAXSPEEDS = json.load(f)
 
 
@@ -78,7 +78,7 @@ def preprocess_and_convert_to_list(x: str, column_name: str) -> List[str]:
     
 
 def sanitize_and_normalize(x: str, column_name: str) -> str:
-    return normalize(sanitize(str(x), column_name), column_name)
+    return normalize(sanitize(x, column_name), column_name)
 
 
 def normalize(x: str, column_name: str) -> str:
@@ -95,6 +95,8 @@ def normalize(x: str, column_name: str) -> str:
                 x = 7
             elif x <= 10:
                 x = 10
+            elif x <= 15:
+                x = 15
             else:
                 x = min(int(round(x / 10) * 10), 200)
         elif column_name == "width":
@@ -126,10 +128,10 @@ def sanitize(x: str, column_name: str) -> str:
         elif column_name == "width":
             if x.endswith(" m") or x.endswith("m") or x.endswith("meter"):
                 x = x.split("m")[0].strip()
-            if "'" in x:
+            elif "'" in x:
                 x = float(x.split("'")[0])
                 x = x * 0.0254
-            if x.endswith("ft"):
+            elif x.endswith("ft"):
                 x = float(x.split(" ft")[0])
                 x = x * 0.3048
             x = float(x)
