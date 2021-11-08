@@ -39,6 +39,8 @@ def generate_hexagons_for_place(place: gpd.GeoDataFrame, resolution: int, save_d
 def get_resolution_buffered_suffix(resolution: int, buffered: bool):
     return f"{resolution}{'_buffered' if buffered else ''}"
 
+def get_edges_with_features_filename(network_type: str, resolution: int, buffered: bool, intersection_based: bool) -> str:
+    return f"edges_{network_type}_{get_resolution_buffered_suffix(resolution, buffered)}{'_intersection' if intersection_based else ''}.feather"
 
 def get_buffered_place_for_h3(place: gpd.GeoDataFrame, resolution: int) -> gpd.GeoDataFrame:  # FIXME: not sure if it works properly
     twice_edge_length = 2 * h3.edge_length(resolution=resolution, unit="m")  # type: ignore

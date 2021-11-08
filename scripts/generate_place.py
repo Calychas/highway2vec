@@ -10,7 +10,7 @@ sys.path.append(str(PROJECT_DIR.joinpath("src").resolve()))
 
 
 from src.tools.osmnx_utils import generate_data_for_place, get_place_dir_name
-from src.tools.h3_utils import generate_hexagons_for_place, assign_hexagons_to_edges, get_resolution_buffered_suffix
+from src.tools.h3_utils import generate_hexagons_for_place, assign_hexagons_to_edges, get_resolution_buffered_suffix, get_edges_with_features_filename
 from src.tools.feature_extraction import generate_features_for_edges
 
 
@@ -61,7 +61,7 @@ def features(place_dir: str, network_type: str, resolution: int, buffered: bool,
 
     edges_with_features = generate_features_for_edges(edges_with_hexagons, featureset)
 
-    edges_with_features.to_feather(Path(place_dir) / f"edges_{network_type}_{get_resolution_buffered_suffix(resolution, buffered)}.feather") # MASSIVE SPEEDUP IN WRITING AND ALSO SMALLER FILE SIZE
+    edges_with_features.to_feather(Path(place_dir) / get_edges_with_features_filename(network_type, resolution, buffered, intersection_based)) # MASSIVE SPEEDUP IN WRITING AND ALSO SMALLER FILE SIZE
 
 
 if __name__ == "__main__":

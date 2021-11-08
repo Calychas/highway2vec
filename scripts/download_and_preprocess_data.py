@@ -27,7 +27,7 @@ def main():
     hex_resolutions_static = [6, 7, 8, 9, 10]
     hex_resolutions_features = [9]
     buffer_features = True
-    intersection_based = False
+    intersection_based = True
     cities = pd.read_csv(RAW_DATA_DIR / "cities.csv")
     # cities = cities[cities["city"].isin(["Los Angeles", "New York City", "San Francisco", "Glasgow"])]  # TODO: remove
 
