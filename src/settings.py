@@ -1,6 +1,4 @@
 from pathlib import Path
-import logging
-from datetime import datetime
 
 RANDOM_SEED = 42
 
@@ -19,12 +17,4 @@ KEPLER_VIS_DIR = KEPLER_DIR / "vis"
 
 LOGS_DIR = PROJECT_DIR / "logs"
 
-
-logging.basicConfig(
-    handlers=[
-        logging.FileHandler(LOGS_DIR / datetime.now().strftime('logfile_%Y-%m-%d_%H-%M-%S.log')),
-        logging.StreamHandler()
-    ],
-    format='%(asctime)s | %(name)s | %(levelname)s | %(funcName)s:%(lineno)d | %(message)s',
-    level=logging.WARNING
-)
+CHECKPOINTS_DIR = PROJECT_DIR / "checkpoints"

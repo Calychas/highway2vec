@@ -2,15 +2,39 @@ from typing import Union, Any, List, Dict
 import pandas as pd
 import geopandas as gpd
 import itertools
-import logging
 from src.settings import *
 import json5 as json
 import numpy as np
+from src.tools.logger import logging, get_logger
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 with open(RAW_DATA_DIR / "implicit_maxspeeds.jsonc", "r") as f:
     IMPLICIT_MAXSPEEDS = json.load(f)
+
+
+def apply_feature_selection(edges: Union[pd.DataFrame, gpd.GeoDataFrame], features_config: dict) -> pd.DataFrame:
+    features_merge: List[dict] = features_config["settings"]["merge"]
+    features_selected: Dict[str, List[str]] = features_config["features"]
+
+    edges_after_merge = apply_features_mapping(edges, features_merge)
+    features = [f"{k}_{v}" for k, vs in features_selected.items() for v in vs]
+    return edges_after_merge[features]
+
+
+def apply_features_mapping(edges: Union[pd.DataFrame, gpd.GeoDataFrame], features_merge: List[dict]) -> pd.DataFrame:
+    for feature_merge in features_merge:
+        feature_name = feature_merge["feature"]
+        feature_mapping = feature_merge["mapping"]
+
+        for feature_source, feature_target in feature_mapping.items():
+            feature_source = f"{feature_name}_{feature_source}"
+            feature_target = f"{feature_name}_{feature_target}"
+            
+            edges[feature_target] = ((edges[feature_source] == 1) | (edges[feature_target] == 1)).astype(int)
+            edges = edges.drop(columns=feature_source)
+
+    return edges
 
 
 def generate_features_for_edges(
