@@ -27,9 +27,14 @@ def main():
     logger = get_logger(__name__, logging.INFO)
 
     cities = pd.read_csv(RAW_DATA_DIR / "cities.csv")
-    # cities = cities[cities["city"].isin(["Wrocław"])]  # TODO: remove
+    cities = cities[cities["city"].isin(["Wrocław"])]  # TODO: remove
 
     pipeline_parameters_list = [
+        PipelineParameters([False, False, True], "drive", [6, 7, 8, 9, 10], [9], False, False),
+        PipelineParameters([False, False, True], "drive", [6, 7, 8, 9, 10], [9], True, False),
+        PipelineParameters([False, False, True], "drive", [6, 7, 8, 9, 10], [9], False, True),
+        PipelineParameters([False, False, True], "drive", [6, 7, 8, 9, 10], [9], True, True),
+
         PipelineParameters([False, False, True], "drive", [6, 7, 8, 9, 10], [8], False, False),
         PipelineParameters([False, False, True], "drive", [6, 7, 8, 9, 10], [8], True, False),
         PipelineParameters([False, False, True], "drive", [6, 7, 8, 9, 10], [8], False, True),
@@ -40,7 +45,7 @@ def main():
         logger.info(f"Pipeline parameters {pp}")
         pbar_city = tqdm(cities.itertuples(), total=cities.shape[0])
         for row in pbar_city:
-            place_name = f"{row.city},{row.country}"
+            place_name = f"{row.city},{row.country},{row.continent}"
             
             place_dir_name = get_place_dir_name(place_name)
             place_dir = GENERATED_DATA_DIR / place_dir_name

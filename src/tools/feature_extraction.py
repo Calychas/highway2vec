@@ -7,7 +7,9 @@ import json5 as json
 import numpy as np
 from src.tools.logger import logging, get_logger
 
+
 logger = get_logger(__name__)
+sparse_dtype = pd.SparseDtype(int, fill_value=0)
 
 with open(RAW_DATA_DIR / "implicit_maxspeeds.jsonc", "r") as f:
     IMPLICIT_MAXSPEEDS = json.load(f)
@@ -31,7 +33,7 @@ def apply_features_mapping(edges: Union[pd.DataFrame, gpd.GeoDataFrame], feature
             feature_source = f"{feature_name}_{feature_source}"
             feature_target = f"{feature_name}_{feature_target}"
             
-            edges[feature_target] = ((edges[feature_source] == 1) | (edges[feature_target] == 1)).astype(int)
+            edges[feature_target] = ((edges[feature_source] == 1) | (edges[feature_target] == 1)).astype(sparse_dtype)
             edges = edges.drop(columns=feature_source)
 
     return edges
@@ -77,7 +79,7 @@ def explode_and_pivot(
         prefix
     )
     df_piv[df_piv.notnull()] = 1
-    df_piv = df_piv.fillna(0).astype(int)
+    df_piv = df_piv.fillna(0).astype('int32')
     
 
     return df_piv

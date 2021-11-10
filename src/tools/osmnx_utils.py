@@ -23,17 +23,24 @@ def generate_data_for_place(place_name: str, data_dir: str, h3_resolutions: List
 def download_and_save_data_for_place(place_name: str, out_dir: Path, network_type: str, h3_resolutions: List[int], regions: Optional[List[str]]):
     ox.config(timeout=10000)
 
+    place_name_split = place_name.split(",")
+    city = place_name_split[0]
+    country = place_name_split[1]
+    continent = place_name_split[2]
+
     if regions is not None:
         by_osmid = isinstance(regions[0], tuple)
         regions = list(map(lambda x: x[0], regions)) if by_osmid else regions
         place = ox.geocode_to_gdf(regions, by_osmid=by_osmid).dissolve()
-        place.display_name = f"{place_name.split(',')[0]}, " + place.display_name
     else:
-        place = ox.geocode_to_gdf(place_name)
+        place = ox.geocode_to_gdf(f"{city},{country}")
 
     place = place.explode()
     place["area"] = place.area
     place = place.sort_values(by="area", ascending=False).iloc[[0]]
+    place["city"] = city
+    place["country"] = country
+    place["continent"] = continent
     polygon = place.geometry.item()
 
     G = ox.graph_from_polygon(polygon, network_type=network_type, retain_all=True)
@@ -53,4 +60,4 @@ def download_and_save_data_for_place(place_name: str, out_dir: Path, network_typ
 
 
 def get_place_dir_name(place_name: str) -> str:
-    return unidecode.unidecode(place_name).replace(",", "_").replace(' ', "-")
+    return "_".join(unidecode.unidecode(place_name).replace(",", "_").replace(' ', "-").split("_")[0:2])
