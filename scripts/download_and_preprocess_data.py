@@ -27,18 +27,18 @@ def main():
     logger = get_logger(__name__, logging.INFO)
 
     cities = pd.read_csv(RAW_DATA_DIR / "cities.csv")
-    cities = cities[cities["city"].isin(["Wrocław"])]  # TODO: remove
+    # cities = cities[cities["city"].isin(["Wrocław"])]  # TODO: remove
 
     pipeline_parameters_list = [
-        PipelineParameters([False, False, True], "drive", [6, 7, 8, 9, 10], [9], False, False),
-        PipelineParameters([False, False, True], "drive", [6, 7, 8, 9, 10], [9], True, False),
-        PipelineParameters([False, False, True], "drive", [6, 7, 8, 9, 10], [9], False, True),
-        PipelineParameters([False, False, True], "drive", [6, 7, 8, 9, 10], [9], True, True),
+        PipelineParameters([True, True, True], "bike", [6, 7, 8, 9, 10], [9], False, False),
+        PipelineParameters([False, False, True], "bike", [6, 7, 8, 9, 10], [9], True, False),
+        PipelineParameters([False, False, True], "bike", [6, 7, 8, 9, 10], [9], False, True),
+        PipelineParameters([False, False, True], "bike", [6, 7, 8, 9, 10], [9], True, True),
 
-        PipelineParameters([False, False, True], "drive", [6, 7, 8, 9, 10], [8], False, False),
-        PipelineParameters([False, False, True], "drive", [6, 7, 8, 9, 10], [8], True, False),
-        PipelineParameters([False, False, True], "drive", [6, 7, 8, 9, 10], [8], False, True),
-        PipelineParameters([False, False, True], "drive", [6, 7, 8, 9, 10], [8], True, True),
+        PipelineParameters([False, False, True], "bike", [6, 7, 8, 9, 10], [8], False, False),
+        PipelineParameters([False, False, True], "bike", [6, 7, 8, 9, 10], [8], True, False),
+        PipelineParameters([False, False, True], "bike", [6, 7, 8, 9, 10], [8], False, True),
+        PipelineParameters([False, False, True], "bike", [6, 7, 8, 9, 10], [8], True, True),
     ]
    
     for pp in pipeline_parameters_list:

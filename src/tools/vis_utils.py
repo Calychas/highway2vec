@@ -16,12 +16,14 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from geopandas import GeoDataFrame
 from shapely import wkt
+import numpy as np
+from scipy.cluster.hierarchy import dendrogram
 
 
 FIGSIZE = (20, 18)
 KEPLER_HEIGHT = 900
 MAP_SOURCE = ctx.providers.CartoDB.Positron
-
+TAB20_PX = list(map(lambda color: f"rgb{tuple(map(lambda color_compound: color_compound * 255, color))}", plt.cm.get_cmap('tab20').colors))
 
 def ensure_geometry_type(
     df: GeoDataFrame, geometry_column: str = "geometry"
@@ -54,11 +56,34 @@ def load_config(config_name: str) -> Union[Dict, None]:
 
 def visualize_kepler(data: Union[pd.DataFrame, gpd.GeoDataFrame], name="data", config_name: str=None) -> KeplerGl:
     ensure_geometry_type(data)
+    m = None
     if config_name is not None:
         config = load_config(config_name)
         if config is not None:
-            return KeplerGl(data={name: data}, config=config, height=KEPLER_HEIGHT)
-    return KeplerGl(data={name: data}, height=KEPLER_HEIGHT)
+            m = KeplerGl(data={name: data}, config=config, height=KEPLER_HEIGHT)
+            
+    m = KeplerGl(data={name: data}, height=KEPLER_HEIGHT) if m is None else m
+    ensure_geometry_type(data)
+    return m
+
+
+def visualize_dendrogram(model, **kwargs):
+    counts = np.zeros(model.children_.shape[0])
+    n_samples = len(model.labels_)
+    for i, merge in enumerate(model.children_):
+        current_count = 0
+        for child_idx in merge:
+            if child_idx < n_samples:
+                current_count += 1  # leaf node
+            else:
+                current_count += counts[child_idx - n_samples]
+        counts[i] = current_count
+
+    linkage_matrix = np.column_stack([model.children_, model.distances_,
+                                      counts]).astype(float)
+
+    # Plot the corresponding dendrogram
+    dendrogram(linkage_matrix, **kwargs)
 
 
 def save_kepler_map(kepler_map: KeplerGl, figure_subpath: Path, remove_html=False):
@@ -85,7 +110,7 @@ def save_kepler_map(kepler_map: KeplerGl, figure_subpath: Path, remove_html=Fals
 
 
 def plot_clusters(df: pd.DataFrame):
-    fig = px.scatter(df, x="x_0", y="x_1", color="cluster", width=800, height=700)
+    fig = px.scatter(df, x="z_0", y="z_1", color="cluster", width=800, height=700, color_discrete_sequence=TAB20_PX)
     return fig
 
 

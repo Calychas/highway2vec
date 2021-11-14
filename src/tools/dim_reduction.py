@@ -13,7 +13,7 @@ def reduce_umap(
 
     embedding_df = pd.DataFrame(
         embedding, # type: ignore
-        columns=[f"x_{i}" for i in range(embedding.shape[1])]
+        columns=[f"z_{i}" for i in range(embedding.shape[1])]
     )
     embedding_df.index = df.index
 

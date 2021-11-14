@@ -6,6 +6,7 @@ from src.settings import *
 import json5 as json
 import numpy as np
 from src.tools.logger import logging, get_logger
+import swifter
 
 
 logger = get_logger(__name__)
@@ -15,16 +16,34 @@ with open(RAW_DATA_DIR / "implicit_maxspeeds.jsonc", "r") as f:
     IMPLICIT_MAXSPEEDS = json.load(f)
 
 
-def apply_feature_selection(edges: Union[pd.DataFrame, gpd.GeoDataFrame], features_config: dict) -> pd.DataFrame:
+def normalize_df(hex_agg: pd.DataFrame, type="global") -> pd.DataFrame:
+    if type == "global":
+        df = (hex_agg / hex_agg.max()).fillna(0.0)
+    elif type == "local":
+        df = (hex_agg / hex_agg.groupby(level=["continent", "country", "city"]).max()).fillna(0.0)
+    else:
+        raise ValueError("type must be either 'global' or 'local'")
+
+    return df
+
+def apply_feature_selection(edges: Union[pd.DataFrame, gpd.GeoDataFrame], features_config: dict, scale_length=False) -> pd.DataFrame:
     features_merge: List[dict] = features_config["settings"]["merge"]
     features_selected: Dict[str, List[str]] = features_config["features"]
 
     edges_after_merge = apply_features_mapping(edges, features_merge)
     features = [f"{k}_{v}" for k, vs in features_selected.items() for v in vs]
+    if scale_length:
+        edges_after_merge = edges_after_merge \
+            .reset_index(drop=True) \
+            .swifter.apply(lambda x: x[features] * x["length"], axis=1)
+        edges_after_merge.index = edges.index
+        # edges_after_merge[f] = edges_after_merge[f].astype("float32")
+
     return edges_after_merge[features]
 
 
 def apply_features_mapping(edges: Union[pd.DataFrame, gpd.GeoDataFrame], features_merge: List[dict]) -> pd.DataFrame:
+    edges_copy = edges.copy()
     for feature_merge in features_merge:
         feature_name = feature_merge["feature"]
         feature_mapping = feature_merge["mapping"]
@@ -33,10 +52,10 @@ def apply_features_mapping(edges: Union[pd.DataFrame, gpd.GeoDataFrame], feature
             feature_source = f"{feature_name}_{feature_source}"
             feature_target = f"{feature_name}_{feature_target}"
             
-            edges[feature_target] = ((edges[feature_source] == 1) | (edges[feature_target] == 1)).astype(sparse_dtype)
-            edges = edges.drop(columns=feature_source)
+            edges_copy[feature_target] = ((edges[feature_source] == 1) | (edges[feature_target] == 1)).astype("int32")
+            edges_copy = edges_copy.drop(columns=feature_source)
 
-    return edges
+    return edges_copy
 
 
 def generate_features_for_edges(
