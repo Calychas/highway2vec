@@ -8,6 +8,8 @@ DATA_DIR = PROJECT_DIR / "data"
 RAW_DATA_DIR = DATA_DIR / "raw"
 PROCESSED_DATA_DIR = DATA_DIR / "processed"
 GENERATED_DATA_DIR = DATA_DIR / "generated"
+FEATURES_DIR = DATA_DIR / "features"
+RUNS_DATA_DIR = DATA_DIR / "runs"
 
 ASSETS_DIR = PROJECT_DIR / "assets"
 
