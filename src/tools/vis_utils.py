@@ -38,7 +38,7 @@ class VisualizationConfig:
     clusters: List[int]
     cities_to_plot: List[str]
     umap_n_components: int
-    umap_n_neighbors: int
+    umap_n_neighbours: int
     umap_metric: str
 
 

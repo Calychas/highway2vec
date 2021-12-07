@@ -22,6 +22,7 @@ class DatasetGenerationConfig:
 class ExperimentConfig:
     dataset_filename: str
     model_name: str
+    mode: str
     test_cities: List[str]
     random_seed: Optional[int]
     batch_size: int
