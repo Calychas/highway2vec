@@ -7,7 +7,7 @@ import seaborn as sns
 import geopandas as gpd
 import pandas as pd
 import plotly.express as px
-from typing import Union, Dict
+from typing import Union, Dict, Optional, List
 from keplergl import KeplerGl
 import json
 from src.settings import *
@@ -18,12 +18,29 @@ from geopandas import GeoDataFrame
 from shapely import wkt
 import numpy as np
 from scipy.cluster.hierarchy import dendrogram
+from dataclasses import dataclass, field
 
 
 FIGSIZE = (20, 18)
 KEPLER_HEIGHT = 900
 MAP_SOURCE = ctx.providers.CartoDB.Positron
 TAB20_PX = list(map(lambda color: f"rgb{tuple(map(lambda color_compound: color_compound * 255, color))}", plt.cm.get_cmap('tab20').colors))
+
+
+@dataclass
+class VisualizationConfig:
+    n_clusters: Optional[int]
+    distance_threshold: int
+    affinity: str
+    linkage: str
+    truncate_mode: str
+    p: int
+    clusters: List[int]
+    cities_to_plot: List[str]
+    umap_n_components: int
+    umap_n_neighbors: int
+    umap_metric: str
+
 
 def ensure_geometry_type(
     df: GeoDataFrame, geometry_column: str = "geometry"
@@ -84,6 +101,7 @@ def visualize_dendrogram(model, **kwargs):
 
     # Plot the corresponding dendrogram
     dendrogram(linkage_matrix, **kwargs)
+    return linkage_matrix
 
 
 def save_kepler_map(kepler_map: KeplerGl, figure_subpath: Path, remove_html=False):

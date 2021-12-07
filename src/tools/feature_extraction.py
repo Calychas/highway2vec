@@ -1,4 +1,4 @@
-from typing import Union, Any, List, Dict
+from typing import Union, Any, List, Dict, Optional
 import pandas as pd
 import geopandas as gpd
 import itertools
@@ -7,13 +7,24 @@ import json5 as json
 import numpy as np
 from src.tools.logger import logging, get_logger
 import swifter
-
+from src.tools.configs import DatasetGenerationConfig
+from dataclasses import dataclass
 
 logger = get_logger(__name__)
 sparse_dtype = pd.SparseDtype(int, fill_value=0)
 
 with open(RAW_DATA_DIR / "implicit_maxspeeds.jsonc", "r") as f:
     IMPLICIT_MAXSPEEDS = json.load(f)
+
+
+@dataclass
+class SpatialDataset:
+    config: DatasetGenerationConfig
+    cities: pd.DataFrame
+    edges: gpd.GeoDataFrame
+    hexagons: gpd.GeoDataFrame
+    hex_agg: Optional[pd.DataFrame]
+    hex_agg_normalized: Optional[pd.DataFrame]
 
 
 def normalize_df(hex_agg: pd.DataFrame, type="global") -> pd.DataFrame:

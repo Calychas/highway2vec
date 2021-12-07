@@ -18,32 +18,10 @@ from src.tools.h3_utils import (get_edges_with_features_filename,
                                 get_resolution_buffered_suffix)
 from src.tools.osmnx_utils import get_place_dir_name
 from tqdm.auto import tqdm
+from src.tools.configs import DatasetGenerationConfig
+from src.tools.feature_extraction import SpatialDataset
 
 
-@dataclass
-class DatasetGenerationConfig:
-    cities_filename: str = "cities.csv"
-    countries: List[str] = field(default_factory=lambda: ["Poland"])
-    resolution: int = 9
-    buffered: bool = True
-    network_type: str = "drive"
-    intersection_based: bool = False
-    scale_length: bool = True
-    normalize_type: str = "global"
-    featureset_transformation_filename: str = "featureset_transformation_default.jsonc"
-    featureset_selection_filename: str = "featureset_selection_1.jsonc"
-    featureset_transformation: Optional[dict] = None
-    featureset_selection: Optional[dict] = None
-
-
-@dataclass
-class SpatialDataset:
-    config: DatasetGenerationConfig
-    cities: pd.DataFrame
-    edges: gpd.GeoDataFrame
-    hexagons: gpd.GeoDataFrame
-    hex_agg: Optional[pd.DataFrame]
-    hex_agg_normalized: Optional[pd.DataFrame]
 
 
 def main(cfg: DatasetGenerationConfig):
