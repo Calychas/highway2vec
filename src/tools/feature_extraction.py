@@ -63,7 +63,12 @@ def apply_features_mapping(edges: Union[pd.DataFrame, gpd.GeoDataFrame], feature
             feature_source = f"{feature_name}_{feature_source}"
             feature_target = f"{feature_name}_{feature_target}"
             
-            edges_copy[feature_target] = ((edges[feature_source] == 1) | (edges[feature_target] == 1)).astype("int32")
+            if feature_source not in edges_copy:
+                edges_copy[feature_source] = 0
+            if feature_target not in edges_copy:
+                edges_copy[feature_target] = 0
+
+            edges_copy[feature_target] = ((edges_copy[feature_source] == 1) | (edges_copy[feature_target] == 1)).astype("int32")
             edges_copy = edges_copy.drop(columns=feature_source)
 
     return edges_copy
