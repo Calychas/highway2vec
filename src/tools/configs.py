@@ -4,18 +4,18 @@ from typing import List, Optional
 
 @dataclass
 class DatasetGenerationConfig:
-    cities_filename: str = "cities.csv"
-    countries: List[str] = field(default_factory=lambda: ["Poland"])
-    resolution: int = 9
-    buffered: bool = True
-    network_type: str = "drive"
-    intersection_based: bool = False
-    scale_length: bool = True
-    normalize_type: str = "global"
-    featureset_transformation_filename: str = "featureset_transformation_default.jsonc"
-    featureset_selection_filename: str = "featureset_selection_1.jsonc"
-    featureset_transformation: Optional[dict] = None
-    featureset_selection: Optional[dict] = None
+    cities_filename: str
+    countries: List[str]
+    resolution: int
+    buffered: bool
+    network_type: str
+    intersection_based: bool
+    scale_length: bool
+    normalize_type: str
+    featureset_transformation_filename: str
+    featureset_selection_filename: str
+    featureset_transformation: Optional[dict]
+    featureset_selection: Optional[dict]
 
 
 @dataclass

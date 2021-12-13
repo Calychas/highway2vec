@@ -20,13 +20,16 @@ from src.tools.osmnx_utils import get_place_dir_name
 from tqdm.auto import tqdm
 from src.tools.configs import DatasetGenerationConfig
 from src.tools.feature_extraction import SpatialDataset
+import gzip
 
 
 
 
 def main(cfg: DatasetGenerationConfig):
     cities = pd.read_csv(RAW_DATA_DIR / cfg.cities_filename)
-    cities = cities[(cities.country.isin(cfg.countries)) & (cities.kacper)]
+    if len(cfg.countries) != 0:
+        cities = cities[(cities.country.isin(cfg.countries))]
+    cities = cities[cities.kacper]
 
     with open(RAW_DATA_DIR / cfg.featureset_transformation_filename, "r") as f:
         featureset = json.load(f)
@@ -90,9 +93,40 @@ def main(cfg: DatasetGenerationConfig):
     hex_agg_normalized = normalize_df(hex_agg, type=normalize_type)
 
     dataset = SpatialDataset(cfg, cities, edges, hexagons, hex_agg, hex_agg_normalized)
-    with open(FEATURES_DIR / f"dataset_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.pkl.gz", "wb") as f:
+    with gzip.open(FEATURES_DIR / f"dataset_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.pkl.gz", "wb") as f:
         pkl.dump(dataset, f)
 
 
 if __name__ == "__main__":
-    main(DatasetGenerationConfig())
+
+    # dc = DatasetGenerationConfig(
+    #     cities_filename="cities.csv",
+    #     countries=["Poland"],
+    #     resolution=9,
+    #     buffered=True,
+    #     network_type="drive",
+    #     intersection_based=False,
+    #     scale_length=True,
+    #     normalize_type="global",
+    #     featureset_transformation_filename="featureset_transformation_default.jsonc",
+    #     featureset_selection_filename="featureset_selection_1.jsonc",
+    #     featureset_transformation=None,
+    #     featureset_selection=None
+    # ) 
+    
+    dc = DatasetGenerationConfig(
+        cities_filename="cities.csv",
+        countries=[],
+        resolution=9,
+        buffered=True,
+        network_type="drive",
+        intersection_based=False,
+        scale_length=False,
+        normalize_type="global",
+        featureset_transformation_filename="featureset_transformation_default.jsonc",
+        featureset_selection_filename="featureset_selection_1.jsonc",
+        featureset_transformation=None,
+        featureset_selection=None
+    )
+
+    main(dc)
