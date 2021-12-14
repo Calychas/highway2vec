@@ -1,1 +1,1 @@
-osm_road_featureset.json filter=lfs diff=lfs merge=lfs -text
+data/runs/** filter=lfs diff=lfs merge=lfs -text
