@@ -127,15 +127,17 @@ def save_kepler_map(kepler_map: KeplerGl, figure_subpath: Path, remove_html=Fals
         html_file.unlink()
 
 
-def plot_clusters(df: pd.DataFrame):
-    fig = px.scatter(df, x="z_0", y="z_1", color="cluster", width=800, height=700, color_discrete_sequence=TAB20_PX)
+def plot_clusters(df: pd.DataFrame, title: str = ""):
+    color_discrete_map = dict(zip(df["cluster"].unique().sort_values().tolist(), TAB20_PX))
+    fig = px.scatter(df, x="z_0", y="z_1", color="cluster", width=800, height=700, color_discrete_map=color_discrete_map, title=title)
     return fig
 
 
-def plot_hexagons_map(hexagons: gpd.GeoDataFrame, edges: gpd.GeoDataFrame, column: str) -> plt.Axes:
+def plot_hexagons_map(hexagons: gpd.GeoDataFrame, edges: gpd.GeoDataFrame, column: str, title: str = "") -> plt.Axes:
     _, ax = plt.subplots(figsize=FIGSIZE)
     ax.set_aspect('equal')
-    hexagons.to_crs(epsg=3857).plot(column=column, ax=ax, alpha=0.6, legend=True, cmap="tab20")
+    ax.set_title(title)
+    hexagons.to_crs(epsg=3857).plot(column=column, ax=ax, alpha=0.6, legend=True, cmap="tab20", vmin=0, vmax=len(TAB20_PX))
     edges.to_crs(epsg=3857).plot(ax=ax, color="black", alpha=0.6)
     ctx.add_basemap(ax, source=MAP_SOURCE)
     return ax
