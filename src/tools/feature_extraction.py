@@ -115,7 +115,6 @@ def explode_and_pivot(
     )
     df_piv[df_piv.notnull()] = 1
     df_piv = df_piv.fillna(0).astype('int32')
-    
 
     return df_piv
 
@@ -128,6 +127,7 @@ def melt_and_max(
     gdf["variable"] = gdf["variable"].apply(lambda x: float(x.split("_")[1]))
     gdf["mul"] = gdf["variable"] * gdf["value"]
     gdf = gdf.groupby("id").max()[["mul"]].rename(columns={"mul": column_name})
+
     return gdf
 
 
@@ -170,7 +170,7 @@ def normalize(x: str, column_name: str) -> str:
 
 
 def sanitize(x: str, column_name: str) -> str:
-    if x == "" or x == "none":
+    if x in ["", "none", "None"]:
         return "None"
 
     try:
@@ -196,10 +196,12 @@ def sanitize(x: str, column_name: str) -> str:
                 x = float(x.split(" ft")[0])
                 x = x * 0.3048
             x = float(x)
-
+        elif column_name == "oneway":
+            x = bool(x)
 
     except Exception as e:
         logger.warn(f"{column_name}: {x} - {type(x)} | {e}")
+        # raise Exception()
         return "None"
 
     return str(x)

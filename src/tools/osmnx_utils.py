@@ -8,6 +8,31 @@ from typing import List, Optional
 from src.tools.h3_utils import get_buffered_place_for_h3, get_resolution_buffered_suffix
 
 
+useful_tags_way = [
+  "bridge",
+  "tunnel",
+  "oneway",
+  "lanes",
+  "ref",
+  "name",
+  "highway",
+  "maxspeed",
+  "service",
+  "access",
+  "area",
+  "landuse",
+  "width",
+  "est_width",
+  "junction",
+
+  # missing in the original config
+  "surface",
+  "footway",
+  "bicycle",
+  "lit",
+]
+
+
 # speedups.disable()  # fix for: ValueError: GEOSGeom_createLinearRing_r returned a NULL pointer
 # print("Speedups enabled:", speedups.enabled)
 
@@ -21,7 +46,7 @@ def generate_data_for_place(place_name: str, data_dir: str, h3_resolutions: List
 
 
 def download_and_save_data_for_place(place_name: str, out_dir: Path, network_type: str, h3_resolutions: List[int], regions: Optional[List[str]]):
-    ox.config(timeout=10000)
+    ox.config(useful_tags_way=useful_tags_way, timeout=10000)
 
     place_name_split = place_name.split(",")
     city = place_name_split[0]
