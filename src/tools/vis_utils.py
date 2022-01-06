@@ -40,6 +40,7 @@ class VisualizationConfig:
     umap_n_components: int
     umap_n_neighbours: int
     umap_metric: str
+    tsne_perplexity: int
 
 
 def ensure_geometry_type(
@@ -71,16 +72,21 @@ def load_config(config_name: str) -> Union[Dict, None]:
         return None
 
 
-def visualize_kepler(data: Union[pd.DataFrame, gpd.GeoDataFrame], name="data", config_name: str=None) -> KeplerGl:
-    ensure_geometry_type(data)
+def visualize_kepler(data: Dict[str, Union[pd.DataFrame, gpd.GeoDataFrame]], config_name: str=None) -> KeplerGl:
+    # [ensure_geometry_type(df) for df in data.values()]
     m = None
     if config_name is not None:
         config = load_config(config_name)
         if config is not None:
-            m = KeplerGl(data={name: data}, config=config, height=KEPLER_HEIGHT)
-            
-    m = KeplerGl(data={name: data}, height=KEPLER_HEIGHT) if m is None else m
-    ensure_geometry_type(data)
+            m = KeplerGl(data=data, config=config, height=KEPLER_HEIGHT)
+          
+    m = KeplerGl(data=data, height=KEPLER_HEIGHT) if m is None else m
+    # [ensure_geometry_type(df) for df in data.values()]
+    return m
+
+
+def visualize_kepler_df(df: Union[pd.DataFrame, gpd.GeoDataFrame], name="data", config_name: str=None) -> KeplerGl:
+    m = visualize_kepler({name: df}, config_name)
     return m
 
 
@@ -111,20 +117,22 @@ def save_kepler_map(kepler_map: KeplerGl, figure_subpath: Path, remove_html=Fals
     
     for gdf in kepler_map.data.values():
         ensure_geometry_type(gdf)
+
+    # kepler_map.data = {k: gpd.GeoDataFrame(v, geometry="geometry") for k, v in kepler_map.data.items()}
     kepler_map.save_to_html(file_name=html_file)
 
-    options = Options()
-    height = kepler_map.height
-    width = 1300
-    options.add_argument("--headless")
-    options.add_argument(f"--window-size={width},{height}")
+    # options = Options()
+    # height = kepler_map.height
+    # width = 1300
+    # options.add_argument("--headless")
+    # options.add_argument(f"--window-size={width},{height}")
 
-    driver = webdriver.Chrome(options=options)
-    driver.get(str(html_file.resolve()))
-    time.sleep(3)
-    driver.save_screenshot(str(result_path))
-    if remove_html:
-        html_file.unlink()
+    # driver = webdriver.Chrome(options=options)
+    # driver.get(str(html_file.resolve()))
+    # time.sleep(3)
+    # driver.save_screenshot(str(result_path))
+    # if remove_html:
+    #     html_file.unlink()
 
 
 def plot_clusters(df: pd.DataFrame, title: str = ""):
@@ -137,10 +145,11 @@ def plot_hexagons_map(hexagons: gpd.GeoDataFrame, edges: gpd.GeoDataFrame, colum
     _, ax = plt.subplots(figsize=FIGSIZE)
     ax.set_aspect('equal')
     ax.set_title(title)
-    hexagons.to_crs(epsg=3857).plot(column=column, ax=ax, alpha=0.6, legend=True, cmap="tab20", vmin=0, vmax=len(TAB20_PX))
-    edges.to_crs(epsg=3857).plot(ax=ax, color="black", alpha=0.6)
+    hexagons.to_crs(epsg=3857).plot(column=column, ax=ax, alpha=0.8, legend=True, cmap="tab20", vmin=0, vmax=len(TAB20_PX))
+    edges.to_crs(epsg=3857).plot(ax=ax, color="black", alpha=0.4)
     ctx.add_basemap(ax, source=MAP_SOURCE)
     return ax
+
 
 
 def plot_feature_map(gdf: gpd.GeoDataFrame, column: str) -> plt.Axes:

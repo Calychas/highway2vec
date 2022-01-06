@@ -22,9 +22,20 @@ class SpatialDataset:
     config: DatasetGenerationConfig
     cities: pd.DataFrame
     edges: gpd.GeoDataFrame
+    edges_feature_selected: gpd.GeoDataFrame
     hexagons: gpd.GeoDataFrame
     hex_agg: Optional[pd.DataFrame]
     hex_agg_normalized: Optional[pd.DataFrame]
+
+
+def features_wide_to_long(df_w: pd.DataFrame, feature_keys: List[str]) -> pd.DataFrame:
+    df_l = df_w.copy()
+    for f_k in feature_keys:
+        features_for_key = [x for x in df_l.columns if f_k in x]
+        df_l[f_k] = df_l[features_for_key].idxmax(axis=1).astype("category")
+        df_l[f_k][df_l[features_for_key].sum(axis=1) == 0] = None
+        df_l.drop(columns=features_for_key, inplace=True)
+    return df_l
 
 
 def normalize_df(hex_agg: pd.DataFrame, type="global") -> pd.DataFrame:
@@ -50,7 +61,8 @@ def apply_feature_selection(edges: Union[pd.DataFrame, gpd.GeoDataFrame], featur
         edges_after_merge.index = edges.index
         # edges_after_merge[f] = edges_after_merge[f].astype("float32")
 
-    return edges_after_merge[features]
+    edges_after_assume = apply_features_assume(edges_after_merge[features], features_config["settings"]["assume"])
+    return edges_after_assume
 
 
 def apply_features_mapping(edges: Union[pd.DataFrame, gpd.GeoDataFrame], features_merge: List[dict]) -> pd.DataFrame:
@@ -72,6 +84,16 @@ def apply_features_mapping(edges: Union[pd.DataFrame, gpd.GeoDataFrame], feature
             edges_copy = edges_copy.drop(columns=feature_source)
 
     return edges_copy
+
+
+def apply_features_assume(edges: Union[pd.DataFrame, gpd.GeoDataFrame], features_assume: dict) -> pd.DataFrame:
+    for feature_name, feature_val in features_assume.items():
+        feature_col = f"{feature_name}_{feature_val}"
+        feature_cols = [col for col in edges.columns if feature_name in col]
+        edges = edges.assign(**{feature_col: ((edges[feature_col].astype(bool)) | (edges[feature_cols].sum(axis=1) == 0)).astype(int)})
+
+    return edges
+
 
 
 def generate_features_for_edges(
@@ -196,8 +218,6 @@ def sanitize(x: str, column_name: str) -> str:
                 x = float(x.split(" ft")[0])
                 x = x * 0.3048
             x = float(x)
-        elif column_name == "oneway":
-            x = bool(x)
 
     except Exception as e:
         logger.warn(f"{column_name}: {x} - {type(x)} | {e}")

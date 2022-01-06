@@ -24,6 +24,7 @@ class ExperimentConfig:
     model_name: str
     mode: str
     test_cities: List[str]
+    test_size: float
     random_seed: Optional[int]
     batch_size: int
     num_workers: int

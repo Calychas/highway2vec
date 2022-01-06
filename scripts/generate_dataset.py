@@ -83,39 +83,25 @@ def main(cfg: DatasetGenerationConfig):
 
     with open(RAW_DATA_DIR / cfg.featureset_selection_filename, "r") as f:
         featureset_selection_config = json.load(f)
-    edges_feature_selection = apply_feature_selection(edges, featureset_selection_config, scale_length=scale_length)
+    edges_feature_selected = apply_feature_selection(edges, featureset_selection_config, scale_length=scale_length)
 
     cfg.featureset_selection = featureset_selection_config
     
-    hex_agg = edges_feature_selection.groupby(level=index_columns).sum()
+    hex_agg = edges_feature_selected.groupby(level=index_columns).sum()
 
     normalize_type = cfg.normalize_type
     hex_agg_normalized = normalize_df(hex_agg, type=normalize_type)
 
-    dataset = SpatialDataset(cfg, cities, edges, hexagons, hex_agg, hex_agg_normalized)
+    dataset = SpatialDataset(cfg, cities, edges, edges_feature_selected, hexagons, hex_agg, hex_agg_normalized)
     with gzip.open(FEATURES_DIR / f"dataset_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.pkl.gz", "wb") as f:
         pkl.dump(dataset, f)
 
 
 if __name__ == "__main__":
 
-    # dc = DatasetGenerationConfig(
-    #     cities_filename="cities.csv",
-    #     countries=["Poland"],
-    #     resolution=9,
-    #     buffered=True,
-    #     network_type="drive",
-    #     intersection_based=False,
-    #     scale_length=True,
-    #     normalize_type="global",
-    #     featureset_transformation_filename="featureset_transformation_default.jsonc",
-    #     featureset_selection_filename="featureset_selection_1.jsonc",
-    #     featureset_transformation=None,
-    #     featureset_selection=None
-    # ) 
-    
     dc = DatasetGenerationConfig(
         cities_filename="cities.csv",
+        # countries=["Poland"],
         countries=[],
         resolution=9,
         buffered=True,
@@ -127,6 +113,7 @@ if __name__ == "__main__":
         featureset_selection_filename="featureset_selection_1.jsonc",
         featureset_transformation=None,
         featureset_selection=None
-    )
+    ) 
+
 
     main(dc)
