@@ -2,3 +2,9 @@
 */*
 !**/.gitkeep
 # !runs/*
+!raw/cities.csv
+!raw/continents.csv
+!raw/featureset_selection_1.jsonc
+!raw/featureset_selection_2.jsonc
+!raw/featureset_transformation_default.jsonc
+!raw/implicit_maxspeeds.jsonc

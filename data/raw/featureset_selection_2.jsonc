@@ -1,0 +1,337 @@
+{
+  "settings": {
+    "assume": {
+      "surface": "paved" // https://wiki.openstreetmap.org/wiki/Key:surface#:~:text=For%20roads%20for%20motor%20vehicles%20there%20there%20is%20typically%20an%20assumption%20that%20the%20surface%20is%20surface%3Dpaved%20unless%20otherwise%20stated
+    },
+    "merge": [
+      // {
+      //   "feature": "highway",
+      //   "mapping": {
+      //     "motorway_link": "motorway",
+      //     "primary_link": "primary",
+      //     "secondary_link": "secondary",
+      //     "tertiary_link": "tertiary",
+      //     "trunk_link": "trunk"
+      //   }
+      // },
+      // {
+      //        "feature": "highway",
+      //        "mapping": {
+      //            'secondary': 'not_residential', 
+      //            'tertiary': 'not_residential', 
+      //            'living_street': 'not_residential', 
+      //            'primary': 'not_residential', 
+      //           'unclassified': 'not_residential', 
+      //            'motorway': 'not_residential', 
+      //            'trunk': 'not_residential'
+      //        }
+      //    }
+      {
+        "feature": "width",
+        "mapping": {
+          "1.5": "1.0",
+          "2.5": "2.0",
+          "3.5": "3.0",
+          "4.5": "4.0",
+          "5.5": "5.0",
+          "6.5": "6.0",
+          "7.5": "7.0",
+          "8.5": "8.0",
+          "9.5": "9.0",
+          "10.5": "10.0",
+          "11.5": "11.0",
+          "12.5": "12.0",
+          "13.5": "13.0",
+          "14.5": "14.0",
+          "15.5": "15.0",
+          "16.5": "16.0",
+          "17.5": "17.0",
+          "18.5": "18.0",
+          "19.5": "19.0",
+          "20.5": "20.0",
+          "21.5": "21.0",
+          "22.5": "22.0",
+          "23.5": "23.0",
+          "24.5": "24.0",
+          "25.5": "25.0",
+          "26.5": "26.0",
+          "27.5": "27.0",
+          "28.5": "28.0",
+          "29.5": "29.0"
+        }
+      },
+      // {
+      //   "feature": "surface",
+      //   "mapping": {
+      //     "asphalt": "paved",
+      //     "paving_stones": "paved",
+      //     "concrete": "paved",
+      //     "concrete_prefabricated": "paved",
+      //     "compacted": "unpaved",
+      //     "ground": "unpaved"
+      //   }
+      // },
+      {
+        "feature": "surface",
+        "mapping": {
+          "asphalt": "paved",
+          "paving_stones": "paved",
+          "sett": "paved",
+          "unhewn_cobblestone": "paved",
+          "cobblestone": "paved",
+          "cobblestone:flattened": "paved",
+          "concrete": "paved",
+          "concrete:lanes": "paved",
+          "concrete:plates": "paved",
+
+          "compacted": "unpaved",
+          "fine_gravel": "unpaved",
+          "gravel": "unpaved",
+          "ground": "unpaved",
+          "pebblestone": "unpaved",
+          "dirt": "unpaved",
+          "earth": "unpaved",
+          "grass": "unpaved",
+          "grass_paver": "unpaved",
+          "sand": "unpaved"
+        }
+      },
+      // {
+      //   "feature": "surface",
+      //   "mapping": {
+      //     "sett": "paving_stones",
+      //     "unhewn_cobblestone": "paving_stones",
+      //     "cobblestone": "paving_stones",
+      //     "cobblestone:flattened": "paving_stones",
+
+      //     "concrete:lanes": "concrete_prefabricated",  // "concrete"
+      //     "concrete:plates": "concrete_prefabricated",  // "concrete
+
+      //     "fine_gravel": "compacted",
+      //     "gravel": "compacted",
+
+      //     "pebblestone": "ground",
+      //     "dirt": "ground",
+      //     "earth": "ground",
+      //     "grass": "ground",
+      //     "grass_paver": "ground",
+      //     "sand": "ground"
+      //   }
+      // }
+    ]
+  },
+  "features": {
+    "oneway": [
+      "False", 
+      "True"
+    ],
+    "lanes": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10"
+      // "11",
+      // "12",
+      // "13",
+      // "14",
+      // "15"
+    ],
+    "highway": [
+      "living_street",
+      "motorway",
+      "motorway_link",
+      "primary",
+      "primary_link",
+      "residential",
+      "secondary",
+      "secondary_link",
+      "tertiary",
+      "tertiary_link",
+      "trunk",
+      "trunk_link",
+      "unclassified"
+    ],
+    "maxspeed": [
+      "5",
+      "7",
+      "10",
+      "15",
+      "20",
+      "30",
+      "40",
+      "50",
+      "60",
+      "70",
+      "80",
+      "90",
+      "100",
+      "110",
+      "120",
+      "130",
+      "140"
+      // "150",
+      // "160",
+      // "170",
+      // "180",
+      // "190",
+      // "200"
+    ],
+    "bridge": [
+      "yes",
+      // "aqueduct",
+      // "boardwalk",
+      "cantilever",
+      "covered",
+      "low_water_crossing",
+      "movable",
+      // "trestle",
+      "viaduct"
+    ],
+    "access": [
+      // "yes",
+      "no",
+      // "private",
+      "permissive",
+      "permit",
+      "destination",
+      "delivery",
+      "customers",
+      "designated",
+      // "use_sidepath",
+      // "dismount",
+      "agricultural",
+      "forestry"
+      // "discouraged",
+      // "unknown"
+    ],
+    "junction": [
+      "roundabout",
+      "circular"
+      // "jughandle",
+      // "filter"
+    ],
+    "width": [
+      "1.0",
+      // "1.5",
+      "2.0",
+      // "2.5",
+      "3.0",
+      // "3.5",
+      "4.0",
+      // "4.5",
+      "5.0",
+      // "5.5",
+      "6.0",
+      // "6.5",
+      "7.0",
+      // "7.5",
+      "8.0",
+      // "8.5",
+      "9.0",
+      // "9.5",
+      "10.0",
+      // "10.5",
+      "11.0",
+      // "11.5",
+      "12.0",
+      // "12.5",
+      "13.0",
+      // "13.5",
+      "14.0",
+      // "14.5",
+      "15.0",
+      // "15.5",
+      "16.0",
+      // "16.5",
+      "17.0",
+      // "17.5",
+      "18.0",
+      // "18.5",
+      "19.0",
+      // "19.5",
+      "20.0"
+      // "20.5",
+      // "21.0",
+      // "21.5",
+      // "22.0",
+      // "22.5",
+      // "23.0",
+      // "23.5",
+      // "24.0",
+      // "24.5",
+      // "25.0",
+      // "25.5",
+      // "26.0",
+      // "26.5",
+      // "27.0",
+      // "27.5",
+      // "28.0",
+      // "28.5",
+      // "29.0",
+      // "29.5",
+      // "30.0"
+    ],
+    "tunnel": [
+      "building_passage",
+      "yes"
+      // "avalanche_protector"
+    ],
+    "surface": [
+      "paved",
+      // "asphalt",
+      // "concrete",
+      // "concrete_prefabricated",
+      "unpaved",
+      // "compacted",
+      // "ground"
+    ]
+    // "surface": [
+    //   "paved",
+    //   "asphalt",
+    //   "concrete",
+    //   "concrete:lanes",
+    //   "concrete:plates",
+    //   "paving_stones",
+    //   "sett",
+    //   "unhewn_cobblestone",
+    //   "cobblestone",
+    //   "cobblestone:flattened",
+    //   "unpaved",
+    //   "compacted",
+    //   "fine_gravel",
+    //   "gravel",
+    //   "pebblestone",
+    //   "ground",
+    //   "dirt",
+    //   "earth",
+    //   "grass",
+    //   "grass_paver",
+    //   "sand"
+    // ]
+    // "bicycle": [
+    //   "yes",
+    //   "no",
+    //   "designated",
+    //   "use_sidepath",
+    //   "dismount",
+    //   "permissive",
+    //   "private",
+    //   "customers",
+    //   "destination"
+    // ],
+    // "lit": [
+    //   "yes",
+    //   "no",
+    //   "sunset-sunrise",
+    //   "24/7",
+    //   "automatic",
+    //   "disused"
+    // ]
+  }
+}
