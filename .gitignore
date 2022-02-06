@@ -7,5 +7,4 @@ lightning_logs/
 wandb/
 logs/
 checkpoints/
-*.code-workspace
 reports/figures/
