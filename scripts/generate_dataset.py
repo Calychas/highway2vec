@@ -27,7 +27,11 @@ import gzip
 
 def main(cfg: DatasetGenerationConfig):
     cities = pd.read_csv(RAW_DATA_DIR / cfg.cities_filename)
-    if len(cfg.countries) != 0:
+
+    if cfg.continents:
+        cities = cities[(cities.continent.isin(cfg.continents))]
+
+    if cfg.countries:
         cities = cities[(cities.country.isin(cfg.countries))]
     cities = cities[cities.kacper]
 
@@ -101,8 +105,10 @@ if __name__ == "__main__":
 
     dc = DatasetGenerationConfig(
         cities_filename="cities.csv",
-        # countries=["Poland"],
-        countries=[],
+        continents=[],
+        # continents=["Europe"],
+        countries=["Poland"],
+        # countries=[],
         resolution=9,
         buffered=True,
         network_type="drive",

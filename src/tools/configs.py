@@ -5,6 +5,7 @@ from typing import List, Optional
 @dataclass
 class DatasetGenerationConfig:
     cities_filename: str
+    continents: List[str]
     countries: List[str]
     resolution: int
     buffered: bool

@@ -37,6 +37,7 @@ class VisualizationConfig:
     p: int
     clusters: List[int]
     cities_to_plot: List[str]
+    countries_subsample: List[str]
     umap_n_components: int
     umap_n_neighbours: int
     umap_metric: str
@@ -60,7 +61,7 @@ def ensure_geometry_type(
 def save_config(kepler: KeplerGl, config_name: str) -> Path:
     path = KEPLER_CONFIG_DIR / f"{config_name}.json"
     with open(path, "wt") as f:
-        json.dump(kepler.config, f)
+        json.dump(kepler.config, f, indent=2)
     return path
 
 
@@ -115,8 +116,8 @@ def save_kepler_map(kepler_map: KeplerGl, figure_subpath: Path, remove_html=Fals
     result_path.parent.mkdir(parents=True, exist_ok=True)
     html_file = result_path.with_suffix(".html")
     
-    for gdf in kepler_map.data.values():
-        ensure_geometry_type(gdf)
+    # for gdf in kepler_map.data.values():
+    #     ensure_geometry_type(gdf)
 
     # kepler_map.data = {k: gpd.GeoDataFrame(v, geometry="geometry") for k, v in kepler_map.data.items()}
     kepler_map.save_to_html(file_name=html_file)
@@ -137,16 +138,17 @@ def save_kepler_map(kepler_map: KeplerGl, figure_subpath: Path, remove_html=Fals
 
 def plot_clusters(df: pd.DataFrame, title: str = ""):
     color_discrete_map = dict(zip(df["cluster"].unique().sort_values().tolist(), TAB20_PX))
-    fig = px.scatter(df, x="z_0", y="z_1", color="cluster", width=800, height=700, color_discrete_map=color_discrete_map, title=title)
+    fig = px.scatter(df, x="z_0", y="z_1", color="cluster", hover_data=["z_0"], width=800, height=700, color_discrete_map=color_discrete_map, title=title)
+    fig.update_layout(legend=dict(traceorder='normal'))
     return fig
 
 
 def plot_hexagons_map(hexagons: gpd.GeoDataFrame, edges: gpd.GeoDataFrame, column: str, title: str = "") -> plt.Axes:
-    _, ax = plt.subplots(figsize=FIGSIZE)
+    _, ax = plt.subplots(figsize=(10, 9))
     ax.set_aspect('equal')
     ax.set_title(title)
-    hexagons.to_crs(epsg=3857).plot(column=column, ax=ax, alpha=0.8, legend=True, cmap="tab20", vmin=0, vmax=len(TAB20_PX))
-    edges.to_crs(epsg=3857).plot(ax=ax, color="black", alpha=0.4)
+    hexagons.to_crs(epsg=3857).plot(column=column, ax=ax, alpha=0.9, legend=True, cmap="tab20", vmin=0, vmax=len(TAB20_PX), linewidth=0)
+    edges.to_crs(epsg=3857).plot(ax=ax, color="black", alpha=0.5, linewidth=0.2)
     ctx.add_basemap(ax, source=MAP_SOURCE)
     return ax
 

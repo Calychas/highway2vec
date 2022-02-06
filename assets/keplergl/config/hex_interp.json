@@ -5,15 +5,15 @@
       "filters": [],
       "layers": [
         {
-          "id": "iuc031q",
-          "type": "point",
+          "id": "a1fkfls",
+          "type": "geojson",
           "config": {
-            "dataId": "data",
-            "label": "Point",
+            "dataId": "edges",
+            "label": "edges",
             "color": [
-              34,
-              109,
-              181
+              218,
+              112,
+              191
             ],
             "highlightColor": [
               252,
@@ -22,18 +22,18 @@
               255
             ],
             "columns": {
-              "lat": "lat",
-              "lng": "lon",
-              "altitude": null
+              "geojson": "geometry"
             },
-            "isVisible": false,
+            "isVisible": true,
             "visConfig": {
-              "radius": 10,
-              "fixedRadius": false,
               "opacity": 0.8,
-              "outline": false,
-              "thickness": 2,
-              "strokeColor": null,
+              "strokeOpacity": 0.8,
+              "thickness": 0.5,
+              "strokeColor": [
+                255,
+                254,
+                230
+              ],
               "colorRange": {
                 "name": "Global Warming",
                 "type": "sequential",
@@ -60,11 +60,25 @@
                   "#FFC300"
                 ]
               },
+              "radius": 10,
+              "sizeRange": [
+                0,
+                10
+              ],
               "radiusRange": [
                 0,
                 50
               ],
-              "filled": true
+              "heightRange": [
+                0,
+                500
+              ],
+              "elevationScale": 5,
+              "enableElevationZoomFactor": true,
+              "stroked": true,
+              "filled": false,
+              "enable3d": false,
+              "wireframe": false
             },
             "hidden": false,
             "textLabel": [
@@ -91,18 +105,22 @@
             "strokeColorField": null,
             "strokeColorScale": "quantile",
             "sizeField": null,
-            "sizeScale": "linear"
+            "sizeScale": "linear",
+            "heightField": null,
+            "heightScale": "linear",
+            "radiusField": null,
+            "radiusScale": "linear"
           }
         },
         {
-          "id": "of1b8ly",
+          "id": "4eve61q",
           "type": "geojson",
           "config": {
-            "dataId": "data",
-            "label": "data",
+            "dataId": "diff",
+            "label": "hex",
             "color": [
-              23,
-              184,
+              30,
+              150,
               190
             ],
             "highlightColor": [
@@ -116,25 +134,22 @@
             },
             "isVisible": true,
             "visConfig": {
-              "opacity": 0.17,
+              "opacity": 0.39,
               "strokeOpacity": 0.8,
-              "thickness": 0.5,
+              "thickness": 1.5,
               "strokeColor": [
-                246,
-                209,
-                138
+                137,
+                218,
+                193
               ],
               "colorRange": {
-                "name": "Global Warming",
-                "type": "sequential",
-                "category": "Uber",
+                "name": "ColorBrewer Set1-3",
+                "type": "qualitative",
+                "category": "ColorBrewer",
                 "colors": [
-                  "#5A1846",
-                  "#900C3F",
-                  "#C70039",
-                  "#E3611C",
-                  "#F1920E",
-                  "#FFC300"
+                  "#e41a1c",
+                  "#377eb8",
+                  "#4daf4a"
                 ]
               },
               "strokeColorRange": {
@@ -190,8 +205,11 @@
             ]
           },
           "visualChannels": {
-            "colorField": null,
-            "colorScale": "quantile",
+            "colorField": {
+              "name": "type",
+              "type": "string"
+            },
+            "colorScale": "ordinal",
             "strokeColorField": null,
             "strokeColorScale": "quantile",
             "sizeField": null,
@@ -206,17 +224,99 @@
       "interactionConfig": {
         "tooltip": {
           "fieldsToShow": {
-            "data": [
+            "diff": [
               {
-                "name": "place_id",
+                "name": "type",
                 "format": null
               },
               {
-                "name": "city",
+                "name": "step",
                 "format": null
               },
               {
-                "name": "country",
+                "name": "h3_id",
+                "format": null
+              },
+              {
+                "name": "oneway",
+                "format": null
+              },
+              {
+                "name": "lanes",
+                "format": null
+              },
+              {
+                "name": "highway",
+                "format": null
+              },
+              {
+                "name": "maxspeed",
+                "format": null
+              },
+              {
+                "name": "bridge",
+                "format": null
+              },
+              {
+                "name": "access",
+                "format": null
+              },
+              {
+                "name": "junction",
+                "format": null
+              },
+              {
+                "name": "width",
+                "format": null
+              },
+              {
+                "name": "tunnel",
+                "format": null
+              },
+              {
+                "name": "surface",
+                "format": null
+              }
+            ],
+            "edges": [
+              {
+                "name": "oneway",
+                "format": null
+              },
+              {
+                "name": "lanes",
+                "format": null
+              },
+              {
+                "name": "highway",
+                "format": null
+              },
+              {
+                "name": "maxspeed",
+                "format": null
+              },
+              {
+                "name": "bridge",
+                "format": null
+              },
+              {
+                "name": "access",
+                "format": null
+              },
+              {
+                "name": "junction",
+                "format": null
+              },
+              {
+                "name": "width",
+                "format": null
+              },
+              {
+                "name": "tunnel",
+                "format": null
+              },
+              {
+                "name": "surface",
                 "format": null
               }
             ]
@@ -246,24 +346,16 @@
     "mapState": {
       "bearing": 0,
       "dragRotate": false,
-      "latitude": 51.72468632143718,
-      "longitude": 17.32263495782534,
+      "latitude": 51.11802408203976,
+      "longitude": 17.007018808056888,
       "pitch": 0,
-      "zoom": 3.6392573882004435,
+      "zoom": 11.930697935537923,
       "isSplit": false
     },
     "mapStyle": {
-      "styleType": "light",
+      "styleType": "satellite",
       "topLayerGroups": {},
-      "visibleLayerGroups": {
-        "label": true,
-        "road": true,
-        "border": false,
-        "building": true,
-        "water": true,
-        "land": true,
-        "3d building": false
-      },
+      "visibleLayerGroups": {},
       "threeDBuildingColor": [
         9.665468314072013,
         17.18305478057247,

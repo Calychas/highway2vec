@@ -17,6 +17,7 @@ class LitAutoEncoder(pl.LightningModule):
             nn.Linear(in_dim, hidden_dim),
             nn.ReLU(),
             nn.Linear(hidden_dim, latent_dim),
+            nn.Tanh()
         )
         self.decoder = nn.Sequential(
             nn.Linear(latent_dim, hidden_dim),
@@ -47,7 +48,8 @@ class LitAutoEncoder(pl.LightningModule):
         x = self._prepare_batch(batch, batch_idx)
         z = self.encoder(x)
         x_hat = self.decoder(z)
-        loss = F.mse_loss(x_hat, x)
+        # loss = F.mse_loss(x_hat, x)
+        loss = F.binary_cross_entropy_with_logits(x_hat, x)
 
         self.log(f'{stage}_loss', loss, on_epoch=True, on_step=True, prog_bar=True)
 

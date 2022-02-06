@@ -20,3 +20,6 @@ KEPLER_VIS_DIR = KEPLER_DIR / "vis"
 LOGS_DIR = PROJECT_DIR / "logs"
 
 CHECKPOINTS_DIR = PROJECT_DIR / "checkpoints"
+
+REPORTS_DIR = PROJECT_DIR / "reports"
+FIGURES_DIR = REPORTS_DIR / "figures"
