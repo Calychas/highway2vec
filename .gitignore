@@ -8,3 +8,4 @@ wandb/
 logs/
 checkpoints/
 *.code-workspace
+reports/figures/
