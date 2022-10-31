@@ -1,3 +1,4 @@
-theme: minima
+theme: cayman
 title: highway2vec
 description: Representing OpenStreetMap microregions with respect to their road network characteristics
+markdown: kramdown

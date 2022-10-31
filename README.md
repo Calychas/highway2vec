@@ -1,4 +1,3 @@
-# highway2vec
 <b>Kacper Leśniara and Piotr Szymański</b>
 
 <i>Representing OpenStreetMap microregions with respect to their road network characteristics</i>
