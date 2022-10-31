@@ -1,65 +1,111 @@
+# highway2vec
+<b>Kacper Leśniara and Piotr Szymański</b>
 
-### osm-road-infrastructure
+<i>Representing OpenStreetMap microregions with respect to their road network characteristics</i>
+
+![](images/Krakow_hexagons.png)
+
+## [Link to repository]()
+## [Link to paper]()
+
+<br></br>
+
+## Goals
+### > Find representations (embeddings) of microregions with respect to their road network characteristics
+### > Define a typology of such regions
+
+<br></br>
+
+## Data
+### OSM
+![OSM query](images/osm_query.jpg)
+
+### Road Network
+![](images/wroclaw_edges.jpg)
+
+### Used Cities
+![](images/cities_europe_all.jpg)
 
 
-## Useful scripts
-```python
-    python .\scripts\generate_place.py download 'Wrocław,Poland' .\data\generated\
-    python .\scripts\generate_place.py h3 .\data\generated\Wroclaw_Poland\place.geojson .\data\generated\Wroclaw_Poland
-    python .\scripts\generate_place.py assignh3 .\data\generated\Wroclaw_Poland
-    python .\scripts\generate_place.py features .\data\generated\Wroclaw_Poland
-```
+### Features
+
+![](images/road_example.jpg)
+| Tag | Description |
+| --- | ----------- |
+| oneway | whether the road is one-way |
+| highway | rank of the road |
+| surface | physical surface, structure, composition |
+| maxspeed | maximum legal speed limit |
+| lanes | number of traffic lanes |
+| bridge | type of bridge that the way is on |
+| junction | type of junction that the way forms itself |
+| access | restrictions on the use |
+| tunnel | type of an underground passage |
+| width | actual width of a way |
+
+<br></br>
+
+## Microregions
+Used [Uber's H3](https://h3geo.org/) (hexagonal hierarchical geospatial indexing system).
+![Hex Resolution comparison](images/hex_resolution_comparison.jpg)
+
+<br></br>
+
+## highway2vec
+![](images/method_framework_v2.png)
+### Autoencoder
+![](images/autoencoder_v2.png)
+### Aggregation
+![](images/feature_aggregation.png)
+
+<br></br>
+
+## Results
+### <b>Typology</b>
+|  | Color | Description |
+| ---: | ----------- | ---- |
+| 0 | blue | high-capacity regions containing arterial roads |
+| 1 | light blue | residential, paved regions with good quality of road infrastructure |
+| 2 | orange | residential, unpaved regions with low quality of road infrastructure |
+| 3 | light orange | regions complementing main road network |
+| 4 | green | high-capacity, high-speed regions and bypasses |
+| 5 | light green | estate regions and connectors |
+| 6 | red | motorways |
+| 7 | light red | traffic collectors and connectors |
 
 
+### <b>Microregions</b>
+| City | Typology | 
+| --- | ----------- | 
+| Bydgoszcz | ![Bydgoszcz](images/Bydgoszcz_hexagons.png) |
+| Cracow | ![Cracow](images/Krakow_hexagons.png) |
+| Poznan | ![Poznan](images/Poznan_hexagons.png) |
+| Tricity | ![Trójmiasto](images/Trojmiasto_hexagons.png) |
+| Warsaw | ![Warszawa](images/Warszawa_hexagons.png) |
+| Wroclaw | ![Wrocław](images/Wroclaw_hexagons.png) |
 
+### <b>Latent Space</b>
+t-SNE
+![TSNE](images/tsne_hexes.png)
 
+| City | Latent space projected into RGB | 
+| --- | ----------- | 
+| Bydgoszcz | ![Bydgoszcz](images/Bydgoszcz.png) |
+| Cracow | ![Cracow](images/Kraków.png) |
+| Poznan | ![Poznan](images/Poznań.png) |
+| Tricity | ![Trójmiasto](images/Trójmiasto.png) |
+| Warsaw | ![Warszawa](images/Warszawa.png) |
+| Wroclaw | ![Wrocław](images/Wrocław.png) |
 
+### <b>Operations in latent space</b>
 
-## The directory structure of your new project looks like this: 
+| Summand | Summand | Result |
+| --- | ----------- | --- |
+| High-traffic region containing a bridge | Residential region | Residential area next to high-traffic roads |
+| ![](images/hex_891e2047243ffff_map.jpg) | ![](images/hex_891e2045483ffff_map.jpg) | ![](images/hex_891e24aa0bbffff_map.jpg)
 
-```
-├── LICENSE
-├── Makefile           <- Makefile with commands like `make data` or `make train`
-├── README.md          <- The top-level README for developers using this project.
-├── data
-│   ├── external       <- Data from third party sources.
-│   ├── interim        <- Intermediate data that has been transformed.
-│   ├── processed      <- The final, canonical data sets for modeling.
-│   └── raw            <- The original, immutable data dump.
-│
-├── docs               <- A default Sphinx project; see sphinx-doc.org for details
-│
-├── models             <- Trained and serialized models, model predictions, or model summaries
-│
-├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-│                         the creator's initials, and a short `-` delimited description, e.g.
-│                         `1.0-jqp-initial-data-exploration`.
-│
-├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-│
-├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-│   └── figures        <- Generated graphics and figures to be used in reporting
-│
-├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-│                         generated with `pip freeze > requirements.txt`
-│
-├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
-├── src                <- Source code for use in this project.
-│   ├── __init__.py    <- Makes src a Python module
-│   │
-│   ├── data           <- Scripts to download or generate data
-│   │   └── make_dataset.py
-│   │
-│   ├── features       <- Scripts to turn raw data into features for modeling
-│   │   └── build_features.py
-│   │
-│   ├── models         <- Scripts to train models and then use trained models to make
-│   │   │                 predictions
-│   │   ├── predict_model.py
-│   │   └── train_model.py
-│   │
-│   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-│       └── visualize.py
-│
-└── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
-```
+<br></br>
+
+## Appendix
+### City feature occurance
+![](images/city_feature_occurrence.svg)
