@@ -8,13 +8,13 @@
 ## [Link to repository]()
 ## [Link to paper]()
 
-<br></br>
+<br>
 
 ## Goals
 ### > Find representations (embeddings) of microregions with respect to their road network characteristics
 ### > Define a typology of such regions
 
-<br></br>
+<br>
 
 ## Data
 ### OSM
@@ -43,13 +43,13 @@
 | tunnel | type of an underground passage |
 | width | actual width of a way |
 
-<br></br>
+<br>
 
 ## Microregions
 Used [Uber's H3](https://h3geo.org/) (hexagonal hierarchical geospatial indexing system).
 ![Hex Resolution comparison](images/hex_resolution_comparison.jpg)
 
-<br></br>
+<br>
 
 ## highway2vec
 ![](images/method_framework_v2.png)
@@ -58,7 +58,7 @@ Used [Uber's H3](https://h3geo.org/) (hexagonal hierarchical geospatial indexing
 ### Aggregation
 ![](images/feature_aggregation.png)
 
-<br></br>
+<br>
 
 ## Results
 ### <b>Typology</b>
@@ -104,7 +104,7 @@ t-SNE
 | High-traffic region containing a bridge | Residential region | Residential area next to high-traffic roads |
 | ![](images/hex_891e2047243ffff_map.jpg) | ![](images/hex_891e2045483ffff_map.jpg) | ![](images/hex_891e24aa0bbffff_map.jpg)
 
-<br></br>
+<br>
 
 ## Appendix
 ### City feature occurance
