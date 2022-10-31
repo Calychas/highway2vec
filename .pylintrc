@@ -1,5 +1,0 @@
-[MASTER]
-disable=C0114, C0115, C0116
-
-[BASIC]
-good-names=i, j, k, ex, Run, df, l, l1, l2, l3, gdf, G, x, y, p, q, z, X, mu, kl
