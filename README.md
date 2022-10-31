@@ -1,10 +1,17 @@
+# highway2vec
+<b>Kacper Leśniara and Piotr Szymański</b>
+
+<i>Representing OpenStreetMap microregions with respect to their road network characteristics</i>
+
+![](images/Krakow_hexagons.png)
+
 ## [Link to repository]()
 ## [Link to paper]()
 
 <br>
 
 ## Goals
- <b>> Find representations (embeddings) of microregions with respect to their road network characteristics </b>
+<b>> Find representations (embeddings) of microregions with respect to their road network characteristics </b>
 
 <b>> Define a typology of such regions</b>
 
