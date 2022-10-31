@@ -1,3 +1,3 @@
-theme: jekyll-theme-minimal
-title: highway2vec
+theme: jekyll-theme-minima
+title: highway2vecs
 description: Representing OpenStreetMap microregions with respect to their road network characteristics
