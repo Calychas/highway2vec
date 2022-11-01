@@ -18,8 +18,8 @@ Kacper Leśniara and Piotr Szymański. 2022. highway2vec - representing OpenStre
     This will download the data for selected cities and preprocess it (see `data/generated`).
 * `python scripts/generate_dataset.py`<br>
     This will generate dataset from the preprocessed data (see `data/features`).
-* Run `notebooks/vis_data.ipynb`, which will generate data visualizations
-* Run `notebooks/autoencoder.ipynb`, which will train the model run the inference (see `runs/<run_name>`).
-* Run `notebooks/vis_ae.ipynb`, which will generate the analyses and visualizations of the generated embeddings (see `runs/<run_name>/vis`).
+* Run `notebooks/vis_data.ipynb`, which will generate data visualizations (see `reports/figures`)
+* Run `notebooks/autoencoder.ipynb`, which will train the model run the inference (see `data/runs/<run_name>`).
+* Run `notebooks/vis_ae.ipynb`, which will generate the analyses and visualizations of the generated embeddings (see `data/runs/<run_name>/vis`).
 
 ## Final run used in the paper is available [here](https://drive.google.com/file/d/1f8UQDkxDGj9h9ic_RANRiI352aS-zfiZ/view?usp=sharing)
