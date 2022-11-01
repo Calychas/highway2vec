@@ -5,8 +5,10 @@ venv/
 .env
 lightning_logs/
 wandb/
-logs/
+logs/**/*
+!logs/.gitkeep
 checkpoints/
-reports/figures/
+reports/figures/**/*
+!reports/figures/.gitkeep
 
 .DS_Store
