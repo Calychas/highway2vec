@@ -106,9 +106,7 @@ if __name__ == "__main__":
     dc = DatasetGenerationConfig(
         cities_filename="cities.csv",
         continents=[],
-        # continents=["Europe"],
         countries=["Poland"],
-        # countries=[],
         resolution=9,
         buffered=True,
         network_type="drive",

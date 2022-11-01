@@ -76,11 +76,9 @@ def download_and_save_data_for_place(place_name: str, out_dir: Path, network_typ
     gpkg_path = Path(out_dir) / f"graph_{network_type}.gpkg"
     ox.save_graph_geopackage(G, gpkg_path)
     place.to_file(gpkg_path, layer="place", driver="GPKG")
-    # place.to_file(out_dir / "place.geojson", driver="GeoJSON")
 
     for h3_res in h3_resolutions:
         place_buffered = get_buffered_place_for_h3(place, h3_res)  # type: ignore
-        # place_buffered.to_file(out_dir / f"place_{get_resolution_buffered_suffix(h3_res, True)}.geojson", driver="GeoJSON")
         place_buffered.to_file(gpkg_path, layer=f"place_{get_resolution_buffered_suffix(h3_res, True)}", driver="GPKG")
 
 

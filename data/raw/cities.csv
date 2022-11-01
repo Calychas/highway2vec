@@ -1,118 +1,118 @@
-city,country,continent,kacper,szymon,piotr,kamil,regions,to_fix
-Tokyo,Japan,Asia,False,False,False,False,,True
-Nur-Sultan,Kazakhstan,Asia,True,True,False,False,,False
-Doha,Qatar,Asia,True,False,False,False,,True
-Moscow,Russia,Asia,True,True,False,True,,False
-St. Petersburg,Russia,Asia,True,False,False,False,,False
-Singapore,Singapore,Asia,True,False,False,False,,True
-Seoul,South Korea,Asia,True,False,False,False,,True
-Ankara,Turkey,Asia,False,True,False,False,,True
-Istanbul,Turkey,Asia,True,False,False,False,,True
-Abu Dhabi,United Arab Emirates,Asia,True,False,False,False,,False
-Dubai,United Arab Emirates,Asia,True,False,False,False,,False
-Tirana,Albania,Europe,True,True,False,False,,True
-Yerevan,Armenia,Europe,True,True,False,False,,False
-Vienna,Austria,Europe,True,True,True,True,,False
-Baku,Azerbaijan,Europe,False,True,False,False,,True
-Minsk,Belarus,Europe,True,True,False,False,,False
-Antwerp,Belgium,Europe,True,False,True,True,,True
-Brussels,Belgium,Europe,False,True,True,True,,True
-Gent,Belgium,Europe,True,False,True,False,,True
-Sarajevo,Bosnia and Herzegovina,Europe,True,True,False,False,,True
-Sofia,Bulgaria,Europe,True,True,False,False,,True
-Zagreb,Croatia,Europe,True,True,True,False,,False
-Nicosia,Cyprus,Europe,False,True,False,False,,True
-Brno,Czech Republic,Europe,True,False,False,True,,False
-Ostrava,Czech Republic,Europe,True,False,False,True,,False
-Prague,Czech Republic,Europe,True,True,True,True,,False
-Copenhagen,Denmark,Europe,True,False,False,False,['Copenhagen Municipality'],True
-Tallinn,Estonia,Europe,True,True,False,False,,False
-Espoo,Finland,Europe,False,False,True,False,,True
-Helsinki,Finland,Europe,True,True,True,True,,True
-Oulu,Finland,Europe,False,False,True,False,,True
-Tampere,Finland,Europe,False,False,True,False,,True
-Bordeaux,France,Europe,True,False,False,True,,True
-Lille,France,Europe,True,False,True,False,,True
-Lyon,France,Europe,True,False,False,True,,True
-Marseille,France,Europe,True,False,False,True,,False
-Nantes,France,Europe,True,False,True,True,,True
-Nice,France,Europe,True,False,True,False,,False
-Paris,France,Europe,True,True,False,True,"[('R5833187',)]",False
-Toulouse,France,Europe,True,False,True,True,,False
-Tbilisi,Georgia,Europe,True,True,False,False,,False
-Aachen,Germany,Europe,True,False,True,False,,False
-Berlin,Germany,Europe,True,True,True,True,,False
-Cologne,Germany,Europe,True,False,True,False,,False
-Erfurt,Germany,Europe,True,False,True,False,,False
-Frankfurt,Germany,Europe,True,False,False,False,,False
-Hamburg,Germany,Europe,True,False,True,False,,False
-Karlsruhe,Germany,Europe,True,False,True,False,,False
-Leipzig,Germany,Europe,True,False,True,False,,False
-Mannheim,Germany,Europe,True,False,True,False,,True
-Munich,Germany,Europe,True,False,False,True,,False
-Athens,Greece,Europe,True,False,True,False,"['Regional Unit of Central Athens', 'Regional Unit of North Athens', 'Regional Unit of West Athens', 'Regional Unit of South Athens', 'Regional Unit of Piraeus']",False
-Budapest,Hungary,Europe,True,True,True,True,,False
-Reykjavik,Iceland,Europe,False,True,False,False,,True
-Dublin,Ireland,Europe,True,True,True,True,,False
-Florence,Italy,Europe,True,False,True,False,,False
-Genoa,Italy,Europe,True,False,True,False,,False
-Milan,Italy,Europe,True,False,True,True,,True
-Palermo,Italy,Europe,True,False,True,False,,False
-Rome,Italy,Europe,True,True,False,False,,False
-Turin,Italy,Europe,True,False,True,False,,False
-Venice,Italy,Europe,True,False,True,False,,False
-Riga,Latvia,Europe,True,True,False,False,,False
-Vilnius,Lithuania,Europe,True,True,True,False,,False
-Luxembourg City,Luxembourg,Europe,True,True,False,False,,False
-Valletta,Malta,Europe,False,True,False,False,,True
-Kishinev,Moldova,Europe,True,True,False,False,,False
-Podgorica,Montenegro,Europe,True,True,False,False,,False
-Amsterdam,Netherlands,Europe,True,True,False,False,,True
-Skopje,North Macedonia,Europe,True,True,False,False,,False
-Oslo,Norway,Europe,True,True,True,True,,True
-Białystok,Poland,Europe,True,False,False,False,,False
-Bydgoszcz,Poland,Europe,True,False,True,False,,False
-Częstochowa,Poland,Europe,True,False,False,False,,False
-Gdańsk,Poland,Europe,False,True,False,False,,False
-Gdynia,Poland,Europe,False,False,False,False,,False
-Katowice,Poland,Europe,False,False,False,False,,True
-Kraków,Poland,Europe,True,True,True,False,,False
-Lublin,Poland,Europe,True,False,True,False,,False
-Poznań,Poland,Europe,True,True,True,True,,False
-Radom,Poland,Europe,True,False,True,False,,False
-Sopot,Poland,Europe,False,False,False,False,,False
-Szczecin,Poland,Europe,True,True,True,False,,False
-Trójmiasto,Poland,Europe,True,False,True,False,"['Gdańsk','Gdynia','Sopot']",False
-Warszawa,Poland,Europe,True,True,True,True,,False
-Wrocław,Poland,Europe,True,True,True,True,,False
-Zielona Góra,Poland,Europe,True,False,False,False,,False
-Łódź,Poland,Europe,True,True,False,False,,False
-Świdnica,Poland,Europe,False,False,False,False,,False
-Lisbon,Portugal,Europe,True,True,False,False,,True
-Bucharest,Romania,Europe,True,True,False,False,,False
-Belgrade,Serbia,Europe,True,True,True,False,,False
-Bratislava,Slovakia,Europe,True,True,False,False,,False
-Ljubljana,Slovenia,Europe,True,True,False,False,,False
-Barcelona,Spain,Europe,True,False,True,True,,True
-Bilbao,Spain,Europe,True,False,True,False,"['Greater Bilbao,Spain']",False
-Madrid,Spain,Europe,True,True,True,True,,True
-Seville,Spain,Europe,True,False,False,True,,False
-Valencia,Spain,Europe,True,False,True,True,,True
-Zaragoza,Spain,Europe,True,False,False,True,,False
-Göteborg,Sweden,Europe,True,False,False,True,,True
-Stockholm,Sweden,Europe,True,True,False,False,,True
-Bern,Switzerland,Europe,True,True,False,True,,False
-Zurich,Switzerland,Europe,True,False,True,True,,False
-Kyiv,Ukraine,Europe,True,True,False,True,,False
-Cardiff,United Kingdom,Europe,True,False,False,True,"[('R1625787',)]",False
-Glasgow City,United Kingdom,Europe,True,False,False,False,,False
-London,United Kingdom,Europe,True,True,False,True,"['London', 'City of London']",False
-Toronto,Canada,North America,False,False,False,False,,True
-Chicago,United States,North America,False,True,False,False,,True
-Las Vegas,United States,North America,False,False,False,False,,True
-Los Angeles,United States,North America,False,True,False,False,,True
-New York City,United States,North America,True,True,False,False,,True
-Philadelphia,United States,North America,True,True,False,False,,True
-San Francisco,United States,North America,True,True,False,False,,True
-Washington D.C.,United States,North America,False,False,False,False,,True
-Sydney,Australia,Oceania,True,False,False,False,,False
+city,country,regions
+Tokyo,Japan,
+Nur-Sultan,Kazakhstan,
+Doha,Qatar,
+Moscow,Russia,
+St. Petersburg,Russia,
+Singapore,Singapore,
+Seoul,South Korea,
+Ankara,Turkey,
+Istanbul,Turkey,
+Abu Dhabi,United Arab Emirates,
+Dubai,United Arab Emirates,
+Tirana,Albania,
+Yerevan,Armenia,
+Vienna,Austria,
+Baku,Azerbaijan,
+Minsk,Belarus,
+Antwerp,Belgium,
+Brussels,Belgium,
+Gent,Belgium,
+Sarajevo,Bosnia and Herzegovina,
+Sofia,Bulgaria,
+Zagreb,Croatia,
+Nicosia,Cyprus,
+Brno,Czech Republic,
+Ostrava,Czech Republic,
+Prague,Czech Republic,
+Copenhagen,Denmark,['Copenhagen Municipality']
+Tallinn,Estonia,
+Espoo,Finland,
+Helsinki,Finland,
+Oulu,Finland,
+Tampere,Finland,
+Bordeaux,France,
+Lille,France,
+Lyon,France,
+Marseille,France,
+Nantes,France,
+Nice,France,
+Paris,France,"[('R5833187',)]"
+Toulouse,France,
+Tbilisi,Georgia,
+Aachen,Germany,
+Berlin,Germany,
+Cologne,Germany,
+Erfurt,Germany,
+Frankfurt,Germany,
+Hamburg,Germany,
+Karlsruhe,Germany,
+Leipzig,Germany,
+Mannheim,Germany,
+Munich,Germany,
+Athens,Greece,"['Regional Unit of Central Athens', 'Regional Unit of North Athens', 'Regional Unit of West Athens', 'Regional Unit of South Athens', 'Regional Unit of Piraeus']"
+Budapest,Hungary,
+Reykjavik,Iceland,
+Dublin,Ireland,
+Florence,Italy,
+Genoa,Italy,
+Milan,Italy,
+Palermo,Italy,
+Rome,Italy,
+Turin,Italy,
+Venice,Italy,
+Riga,Latvia,
+Vilnius,Lithuania,
+Luxembourg City,Luxembourg,
+Valletta,Malta,
+Kishinev,Moldova,
+Podgorica,Montenegro,
+Amsterdam,Netherlands,
+Skopje,North Macedonia,
+Oslo,Norway,
+Białystok,Poland,
+Bydgoszcz,Poland,
+Częstochowa,Poland,
+Gdańsk,Poland,
+Gdynia,Poland,
+Katowice,Poland,
+Kraków,Poland,
+Lublin,Poland,
+Poznań,Poland,
+Radom,Poland,
+Sopot,Poland,
+Szczecin,Poland,
+Trójmiasto,Poland,"['Gdańsk','Gdynia','Sopot']"
+Warszawa,Poland,
+Wrocław,Poland,
+Zielona Góra,Poland,
+Łódź,Poland,
+Świdnica,Poland,
+Lisbon,Portugal,
+Bucharest,Romania,
+Belgrade,Serbia,
+Bratislava,Slovakia,
+Ljubljana,Slovenia,
+Barcelona,Spain,
+Bilbao,Spain,"['Greater Bilbao,Spain']"
+Madrid,Spain,
+Seville,Spain,
+Valencia,Spain,
+Zaragoza,Spain,
+Göteborg,Sweden,
+Stockholm,Sweden,
+Bern,Switzerland,
+Zurich,Switzerland,
+Kyiv,Ukraine,
+Cardiff,United Kingdom,"[('R1625787',)]"
+Glasgow City,United Kingdom,
+London,United Kingdom,"['London', 'City of London']"
+Toronto,Canada,
+Chicago,United States,
+Las Vegas,United States,
+Los Angeles,United States,
+New York City,United States,
+Philadelphia,United States,
+San Francisco,United States,
+Washington D.C.,United States,
+Sydney,Australia,
