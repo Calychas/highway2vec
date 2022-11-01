@@ -27,7 +27,7 @@ def main():
     logger = get_logger(__name__, logging.INFO)
 
     cities = pd.read_csv(RAW_DATA_DIR / "cities.csv")
-    cities = cities[cities["city"].isin(["Wrocław"])]
+    cities = cities[cities["city"].isin(["Wrocław", "Kraków"])]
 
     pipeline_parameters_list = [
         PipelineParameters([True, True, True], "drive", [6, 7, 8, 9, 10], [8], False, False),

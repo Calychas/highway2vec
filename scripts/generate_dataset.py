@@ -33,7 +33,6 @@ def main(cfg: DatasetGenerationConfig):
 
     if cfg.countries:
         cities = cities[(cities.country.isin(cfg.countries))]
-    cities = cities[cities.kacper]
 
     with open(RAW_DATA_DIR / cfg.featureset_transformation_filename, "r") as f:
         featureset = json.load(f)
@@ -107,7 +106,7 @@ if __name__ == "__main__":
         cities_filename="cities.csv",
         continents=[],
         countries=["Poland"],
-        resolution=9,
+        resolution=8,
         buffered=True,
         network_type="drive",
         intersection_based=False,

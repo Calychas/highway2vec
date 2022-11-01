@@ -2,11 +2,12 @@ GDAL
 Fiona
 rasterio
 future
+
 pandas
 numpy
 plotly
 jupyter
-h3
+h3~=3.7.4
 shapely
 geopandas
 networkx
@@ -18,19 +19,15 @@ tqdm
 scikit-learn
 contextily
 keplergl
-
 click
 unidecode
-
 selenium
 snakeviz
 pyarrow
 json5
-
 swifter
 kaleido
 xgboost
-
 
 torch
 torchvision

@@ -8,3 +8,5 @@ wandb/
 logs/
 checkpoints/
 reports/figures/
+
+.DS_Store
