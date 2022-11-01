@@ -3,6 +3,8 @@
 
 <i>Representing OpenStreetMap microregions with respect to their road network characteristics</i>
 
+Paper: https://github.com/Calychas/osm-road-infrastructure/blob/master/SIGSPATIAL_2022_paper_262.pdf
+
 ![](images/Krakow_hexagons.png)
 
 This is a companion repository to the paper accepted at The 5th ACM SIGSPATIAL International Workshop on AI for Geographic Knowledge Discovery (GeoAI ’22).
